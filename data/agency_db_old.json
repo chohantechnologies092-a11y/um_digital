@@ -1,0 +1,274 @@
+{
+  "settings": {
+    "agencyName": "UM Digital Agency",
+    "tagline": "Empowering Brands Through Full-Stack Digital Innovation",
+    "contactEmail": "contact@umdigitalagency.com",
+    "contactPhone": "+92 300 0000000",
+    "address": "UM Digital Tower, Innovation Hub, Lahore, Pakistan & Worldwide",
+    "logoUrl": "/assets/um digital logo sa-01.png",
+    "logoSecondaryUrl": "/assets/um digital logo sa-01.png",
+    "socialLinks": {
+      "facebook": "https://facebook.com/umdigitalagency",
+      "instagram": "https://instagram.com/umdigitalagency",
+      "linkedin": "https://linkedin.com/company/umdigitalagency",
+      "twitter": "https://twitter.com/umdigitalagency",
+      "youtube": "https://youtube.com/@umdigitalagency",
+      "whatsapp": "https://wa.me/923000000000"
+    }
+  },
+  "hero": {
+    "badge": "⚡ FULL-STACK DIGITAL SERVICES AGENCY",
+    "heading": "Transform Your Business With Next-Gen Digital Strategy",
+    "subheading": "From high-converting Digital Marketing & SEO to custom Software Development, Graphic Design, Photography, Videography & Animation.",
+    "primaryCtaText": "Explore Our Services",
+    "secondaryCtaText": "Get Free Quote",
+    "stats": [
+      {
+        "id": "1",
+        "label": "Projects Completed",
+        "value": "450+"
+      },
+      {
+        "id": "2",
+        "label": "Active Global Clients",
+        "value": "180+"
+      },
+      {
+        "id": "3",
+        "label": "Creative & Tech Experts",
+        "value": "35+"
+      },
+      {
+        "id": "4",
+        "label": "Client Satisfaction Rate",
+        "value": "99.4%"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "digital-marketing",
+      "slug": "digital-marketing",
+      "title": "Digital Marketing",
+      "shortDesc": "Strategic social media campaigns, paid ads (Meta & Google), lead generation, and performance marketing to scale revenue.",
+      "fullDesc": "Supercharge your brand visibility and ROI with data-backed digital marketing. We build multi-channel marketing funnels, manage high-yield PPC campaigns, drive organic community engagement, and optimize conversions across all social touchpoints.",
+      "icon": "TrendingUp",
+      "features": [
+        "Meta & Google Ads Management",
+        "Social Media Management (SMM)",
+        "Sales Funnel & Lead Generation",
+        "Influencer & Content Strategy",
+        "Analytics & ROI Dashboards"
+      ],
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "seo-optimization",
+      "slug": "seo-optimization",
+      "title": "SEO (Search Engine Optimization)",
+      "shortDesc": "Dominating search rankings with technical audits, targeted keywords, organic content, and Google Maps local SEO.",
+      "fullDesc": "Outrank competitors and secure top rankings on Google search. Our comprehensive SEO strategy covers technical site optimization, high-converting keyword research, authoritative link building, and local Google My Business growth.",
+      "icon": "Search",
+      "features": [
+        "Comprehensive Technical SEO Audit",
+        "High-Intent Keyword Strategy",
+        "On-Page & Content Optimization",
+        "Quality Backlink Building",
+        "Local SEO & GMB Optimization"
+      ],
+      "active": true,
+      "order": 2
+    },
+    {
+      "id": "graphics-designing",
+      "slug": "graphics-designing",
+      "title": "Graphics Designing & UI/UX",
+      "shortDesc": "World-class branding, vector graphics, UI/UX designs, social media kits, and visual identity systems.",
+      "fullDesc": "Elevate your visual presence with stunning aesthetics. Our creative team designs memorable logos, full brand guidelines, intuitive web & app UI/UX wireframes, ad creatives, and high-impact print assets.",
+      "icon": "Palette",
+      "features": [
+        "Brand Identity & Logo Design",
+        "Web & Mobile App UI/UX",
+        "Social Media Banners & Ads",
+        "Vector Graphics & Illustrations",
+        "Print & Packaging Design"
+      ],
+      "active": true,
+      "order": 3
+    },
+    {
+      "id": "web-software-development",
+      "slug": "web-software-development",
+      "title": "Web / Software Development",
+      "shortDesc": "Custom high-speed websites, Next.js web applications, e-commerce stores, custom dashboards, and mobile apps.",
+      "fullDesc": "Engineered for speed, security, and scalability. We build custom full-stack web applications, e-commerce platforms, SaaS portals, and custom software systems using modern frameworks like Next.js, React, Node.js, and Cloud services.",
+      "icon": "Code2",
+      "features": [
+        "Next.js & React Web Applications",
+        "Custom E-Commerce Development",
+        "Full-Stack Admin Dashboards & CMS",
+        "API Architecture & Integrations",
+        "Speed Optimization & Cloud Hosting"
+      ],
+      "active": true,
+      "order": 4
+    },
+    {
+      "id": "photography",
+      "slug": "photography",
+      "title": "Commercial Photography",
+      "shortDesc": "Studio product shoots, corporate headshots, brand lifestyle photography, and e-commerce product imagery.",
+      "fullDesc": "Showcase products and brand stories in vivid detail. We provide studio product photography, corporate team shoots, event coverage, and editorial imagery polished with professional color grading.",
+      "icon": "Camera",
+      "features": [
+        "Studio Product Photography",
+        "Corporate & Executive Headshots",
+        "E-Commerce Catalog Shoots",
+        "Commercial & Fashion Photography",
+        "High-End Image Retouching"
+      ],
+      "active": true,
+      "order": 5
+    },
+    {
+      "id": "videography-animation",
+      "slug": "videography-animation",
+      "title": "Videography & Motion Animation",
+      "shortDesc": "Cinematic brand commercials, 2D/3D motion graphics, animated explainer videos, and social media reels.",
+      "fullDesc": "Captivate audiences with high-energy video content and motion animation. We produce broadcast-ready commercial videos, 2D/3D animated explainers, viral reels, and post-production color grading.",
+      "icon": "Video",
+      "features": [
+        "2D & 3D Motion Graphics",
+        "Cinematic Commercial Reels",
+        "Animated Explainer Videos",
+        "Post-Production & Sound Design",
+        "Drone & Event Videography"
+      ],
+      "active": true,
+      "order": 6
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "proj-1",
+      "title": "NexGen Fintech Platform UI & Web App",
+      "category": "Web / Software Development",
+      "description": "Full-stack high performance financial portal built with Next.js 16 and custom dashboard architecture.",
+      "clientName": "NexGen Financials Ltd",
+      "imageUrl": "/assets/DIGITAL AGENCY.png",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "proj-2",
+      "title": "Aura Luxury Brand Identity & Visual Suite",
+      "category": "Graphics Designing",
+      "description": "Complete brand guidelines, luxury logo suite, vector assets, and visual media branding.",
+      "clientName": "Aura Lifestyle",
+      "imageUrl": "/assets/LOGO SAMPLE-01.png",
+      "videoUrl": "",
+      "liveUrl": "",
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "proj-3",
+      "title": "Global E-Commerce Digital Marketing & SEO Boost",
+      "category": "Digital Marketing & SEO",
+      "description": "350% increase in organic reach and 4x ROI on Meta PPC ad campaigns within 90 days.",
+      "clientName": "Velocity Apparel",
+      "imageUrl": "/assets/um digital logo sa-01.png",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": "proj-4",
+      "title": "3D Motion Animation Commercial Promo",
+      "category": "Videography & Animation",
+      "description": "High-octane 3D product reveal animated video for international launch campaign.",
+      "clientName": "Horizon Tech",
+      "imageUrl": "/assets/um digital logo sa-01.png",
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "liveUrl": "",
+      "featured": true,
+      "order": 4
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "t-1",
+      "name": "Ahmed Malik",
+      "role": "CEO & Founder",
+      "company": "TechMatrix Global",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "rating": 5,
+      "review": "UM Digital Agency transformed our entire online presence. Their web development team delivered a lightning-fast site while their SEO strategy tripled our inbound leads in just 3 months!",
+      "featured": true
+    },
+    {
+      "id": "t-2",
+      "name": "Sophia Reynolds",
+      "role": "Marketing Director",
+      "company": "Vogue Essentials",
+      "avatarUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
+      "rating": 5,
+      "review": "The graphics design and commercial photography team at UM Digital are absolute visionaries. Their branding and commercial reels took our luxury line to another level.",
+      "featured": true
+    },
+    {
+      "id": "t-3",
+      "name": "David Chen",
+      "role": "Operations Head",
+      "company": "Omni Logistics",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "rating": 5,
+      "review": "Outstanding full-stack services! Having digital marketing, video animation, and web app development handled under one roof saved us months of friction.",
+      "featured": true
+    }
+  ],
+  "team": [
+    {
+      "id": "tm-1",
+      "name": "M. Junaid Ahsan",
+      "role": "Founder & Chief Technology Officer",
+      "bio": "Visionary Tech Strategist specializing in Enterprise Web Architecture, Full-Stack Systems & Brand Growth.",
+      "imageUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400",
+      "linkedinUrl": "https://linkedin.com",
+      "githubUrl": "https://github.com"
+    },
+    {
+      "id": "tm-2",
+      "name": "Zainab Fatima",
+      "role": "Head of Creative Design & Animation",
+      "bio": "Award-winning UI/UX designer and 3D Motion Director crafting iconic visual brand stories.",
+      "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400",
+      "linkedinUrl": "https://linkedin.com"
+    },
+    {
+      "id": "tm-3",
+      "name": "Hamza Farooq",
+      "role": "Director of Performance Marketing & SEO",
+      "bio": "Growth Marketer who has managed $2M+ in Meta/Google ad spend with proven organic search dominance.",
+      "imageUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400",
+      "linkedinUrl": "https://linkedin.com"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-101",
+      "name": "Sarah Khan",
+      "email": "sarah@innovatepk.com",
+      "phone": "+92 321 9876543",
+      "serviceRequested": "Web / Software Development",
+      "budgetRange": "$2,000 - $5,000",
+      "message": "Looking to build a custom SaaS portal and dynamic dashboard for our logistics business.",
+      "createdAt": "2026-07-28T14:30:00Z",
+      "status": "New"
+    }
+  ]
+}

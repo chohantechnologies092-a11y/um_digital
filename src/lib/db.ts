@@ -225,6 +225,11 @@ export function getAgencyData(): AgencyData {
     if (fs.existsSync(DB_PATH)) {
       const data = fs.readFileSync(DB_PATH, 'utf-8');
       const parsedData = JSON.parse(data) as AgencyData;
+      parsedData.services = parsedData.services || initialAgencyData.services;
+      parsedData.portfolio = parsedData.portfolio || initialAgencyData.portfolio;
+      parsedData.testimonials = parsedData.testimonials || initialAgencyData.testimonials;
+      parsedData.team = parsedData.team || initialAgencyData.team;
+      parsedData.leads = parsedData.leads || [];
       if (!parsedData.clients) {
         parsedData.clients = initialAgencyData.clients;
       } else {

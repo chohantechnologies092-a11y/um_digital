@@ -64,10 +64,13 @@ export default function AdminDashboardPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/data');
+      const res = await fetch('/api/data', { cache: 'no-store' });
       if (res.ok) {
         const json = await res.json();
-        setData(json);
+        if (json && typeof json === 'object') {
+          setData(json);
+          return;
+        }
       }
     } catch (err) {
       console.error('Failed to load agency data:', err);
@@ -90,11 +93,11 @@ export default function AdminDashboardPage() {
       });
       const result = await res.json();
       if (res.ok) {
-        setData(result.data);
+        setData(result.data || payload);
         setSaveStatus('Changes saved successfully to database!');
         setTimeout(() => setSaveStatus(null), 4000);
       } else {
-        setSaveStatus('Error saving changes: ' + result.error);
+        setSaveStatus('Error saving changes: ' + (result.error || 'Server error'));
       }
     } catch (err) {
       setSaveStatus('Network error saving changes.');
@@ -111,9 +114,23 @@ export default function AdminDashboardPage() {
 
   if (loading || !data) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white space-y-4">
-        <RefreshCw className="w-10 h-10 text-indigo-500 animate-spin" />
-        <p className="text-sm text-gray-400">Loading UM Digital Admin CMS...</p>
+      <div className="min-h-screen bg-[#030712] flex flex-col items-center justify-center text-white p-6 space-y-5 font-outfit">
+        <div className="w-14 h-14 rounded-full bg-slate-900 border border-amber-500/40 flex items-center justify-center shadow-xl">
+          <RefreshCw className="w-6 h-6 text-amber-400 animate-spin" />
+        </div>
+        <div className="text-center space-y-2">
+          <h3 className="text-lg font-bold text-white">Loading UM Digital Admin CMS...</h3>
+          <p className="text-xs text-slate-400">Connecting to database and fetching latest content</p>
+        </div>
+
+        <div className="pt-2 flex items-center gap-3">
+          <button
+            onClick={() => fetchData()}
+            className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-cyan-300 transition-colors"
+          >
+            Retry Connection
+          </button>
+        </div>
       </div>
     );
   }

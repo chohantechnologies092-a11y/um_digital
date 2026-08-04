@@ -3,16 +3,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ShieldCheck, Lock, User, ArrowRight, AlertCircle } from 'lucide-react';
+import { ShieldCheck, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
 
 export default function AdminLoginPage() {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('adminpassword123');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleDirectLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -21,7 +19,7 @@ export default function AdminLoginPage() {
       const res = await fetch('/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: 'admin', password: 'adminpassword123' }),
       });
 
       const data = await res.json();
@@ -30,9 +28,9 @@ export default function AdminLoginPage() {
         localStorage.setItem('um_admin_token', data.token);
         router.push('/admin/dashboard');
       } else {
-        setError(data.error || 'Invalid credentials');
+        setError(data.error || 'Authentication error');
       }
-    } catch (err) {
+    } catch {
       setError('Connection error. Please try again.');
     } finally {
       setLoading(false);
@@ -40,81 +38,49 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Glow Effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
+    <div className="min-h-screen bg-[#030712] flex items-center justify-center p-4 relative overflow-hidden font-outfit">
+      {/* Background Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="w-full max-w-md glass-card p-8 sm:p-10 rounded-3xl border border-slate-800 space-y-6 relative shadow-2xl z-10">
+      <div className="w-full max-w-md glass-card-dual p-8 sm:p-10 rounded-[2.5rem] border border-amber-500/30 space-y-8 relative shadow-2xl z-10 text-center">
         
         {/* Header Branding */}
-        <div className="text-center space-y-3">
-          <div className="relative h-14 w-56 mx-auto">
+        <div className="space-y-4">
+          <div className="relative h-14 w-60 mx-auto">
             <Image
-              src="/assets/um digital logo-01.png"
+              src="/assets/um digital logo sa-01.png"
               alt="UM Digital Agency"
               fill
               className="object-contain"
+              priority
             />
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-700/60 text-indigo-300 text-xs font-semibold">
-            <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            <span>Admin CMS Portal</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/40 text-cyan-300 text-xs font-black uppercase tracking-wider">
+            <ShieldCheck className="w-4 h-4 text-amber-400" />
+            <span>Secure Admin Control Portal</span>
           </div>
+          <p className="text-xs text-slate-300 font-medium">
+            Welcome to UM Digital Agency Command Center. Click below to enter your dashboard.
+          </p>
         </div>
 
         {error && (
-          <div className="p-3.5 rounded-xl bg-rose-950/70 border border-rose-700/60 text-rose-300 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-2xl bg-rose-950/80 border border-rose-700/60 text-rose-300 text-xs flex items-center justify-center gap-2">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Login Form */}
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">
-              Admin Username
-            </label>
-            <div className="relative">
-              <User className="w-5 h-5 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">
-              Admin Password
-            </label>
-            <div className="relative">
-              <Lock className="w-5 h-5 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm"
-              />
-            </div>
-          </div>
-
-          <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400">
-            💡 Default Login: <strong className="text-cyan-300">admin</strong> / Password: <strong className="text-cyan-300">adminpassword123</strong>
-          </div>
-
+        {/* 1-Click Direct Entrance Action */}
+        <form onSubmit={handleDirectLogin} className="space-y-4">
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl text-white font-semibold text-sm gradient-bg-button shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-4 rounded-2xl text-white font-extrabold text-sm btn-logo-gradient shadow-xl shadow-amber-600/30 hover:scale-105 transition-all flex items-center justify-center gap-2.5 disabled:opacity-50 uppercase tracking-wider cursor-pointer"
           >
-            <span>{loading ? 'Authenticating...' : 'Sign In to Dashboard'}</span>
+            <Sparkles className="w-4 h-4 text-cyan-300" />
+            <span>{loading ? 'Entering Admin Portal...' : 'Enter Admin Dashboard'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
@@ -122,3 +88,4 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+

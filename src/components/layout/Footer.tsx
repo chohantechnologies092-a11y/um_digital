@@ -84,25 +84,17 @@ export const Footer: React.FC<FooterProps> = ({ settings, services }) => {
             </ul>
           </div>
 
-          {/* Admin & Legal */}
+          {/* Agency Location */}
           <div className="space-y-4">
             <h4 className="text-xs font-bold text-white uppercase tracking-widest">
-              Admin & Portal
+              Agency HQ
             </h4>
-            <ul className="space-y-3 text-xs text-slate-300 font-medium">
-              <li>
-                <Link
-                  href="/admin/login"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-300 hover:text-white font-bold transition-colors"
-                >
-                  <ShieldCheck className="w-4 h-4 text-amber-400" />
-                  <span>Admin Panel</span>
-                </Link>
-              </li>
-              <li className="pt-2 text-[11px] text-slate-400">
-                <span>Headquarters: {settings.address}</span>
-              </li>
-            </ul>
+            <p className="text-xs text-slate-300 font-medium leading-relaxed">
+              {settings.address}
+            </p>
+            <p className="text-xs text-cyan-300 font-bold">
+              {settings.contactEmail}
+            </p>
           </div>
 
         </div>

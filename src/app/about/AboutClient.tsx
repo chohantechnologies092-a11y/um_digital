@@ -86,11 +86,16 @@ export default function AboutClient({ data }: { data: any }) {
               <div className="w-full md:w-5/12 shrink-0 relative z-10 group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-brand-orange/20 to-brand-blue/20 rounded-2xl blur-xl transform group-hover:scale-110 transition-transform duration-500"></div>
                 <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/50 backdrop-blur-sm p-4 flex items-center justify-center min-h-[300px]">
-                  {/* Certificate placeholder or actual logo */}
-                  <div className="text-center">
-                    <ShieldCheck className="w-24 h-24 text-brand-orange/50 mx-auto mb-4" />
-                    <p className="text-gray-400 font-semibold uppercase tracking-widest text-sm">Official Certificate</p>
-                  </div>
+                  {profile?.certificateImage ? (
+                    <div className="relative w-full h-[280px] rounded-xl overflow-hidden">
+                      <Image src={profile.certificateImage} alt="Official Registration Certificate" fill className="object-contain" unoptimized />
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <ShieldCheck className="w-24 h-24 text-brand-orange/50 mx-auto mb-4" />
+                      <p className="text-gray-400 font-semibold uppercase tracking-widest text-sm">Official Certificate</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -108,7 +113,7 @@ export default function AboutClient({ data }: { data: any }) {
               
               <div className="w-48 h-48 md:w-64 md:h-64 shrink-0 rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10 bg-white/5 flex items-center justify-center">
                 {profile?.ceoImage ? (
-                  <Image src={profile.ceoImage} alt="CEO" fill className="object-cover" />
+                  <Image src={profile.ceoImage} alt="Leadership" fill className="object-cover" unoptimized />
                 ) : (
                   <Users className="w-20 h-20 text-gray-500" />
                 )}
@@ -121,12 +126,54 @@ export default function AboutClient({ data }: { data: any }) {
                 
                 <div className="prose max-w-none md:prose-lg prose-invert">
                   <p className="text-gray-400 leading-relaxed whitespace-pre-wrap italic">
-                    "{profile?.ceoMessage || 'We believe in building digital products and campaigns that do not just look good, but deliver measurable ROI. Welcome to our unified digital agency.'}"
+                    &quot;{profile?.ceoMessage || 'We believe in building digital products and campaigns that do not just look good, but deliver measurable ROI. Welcome to our unified digital agency.'}&quot;
                   </p>
                 </div>
               </div>
             </div>
           </motion.section>
+
+          {/* Leadership & Engineering Team Section */}
+          {data.team && data.team.length > 0 && (
+            <motion.section
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="space-y-12"
+            >
+              <div className="text-center space-y-3">
+                <span className="text-xs font-extrabold text-cyan-400 uppercase tracking-widest">Our Talent Pool</span>
+                <h2 className="text-3xl md:text-5xl font-black text-white">
+                  Meet the <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-cyan-400">Team</span>
+                </h2>
+                <p className="text-gray-400 text-sm max-w-xl mx-auto">
+                  The passionate engineers, creative directors, and growth strategists powering UM Digital Agency.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {data.team.map((member: any) => (
+                  <div key={member.id} className="glass-card p-6 rounded-3xl border border-white/10 space-y-4 flex flex-col justify-between hover:border-amber-500/40 transition-colors">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4">
+                        <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 flex-shrink-0">
+                          <Image src={member.imageUrl || '/assets/team/placeholder.png'} alt={member.name} fill className="object-cover" unoptimized />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white text-lg">{member.name}</h4>
+                          <p className="text-xs font-semibold text-amber-400">{member.role}</p>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-300 leading-relaxed bg-black/40 p-3.5 rounded-2xl border border-white/5">
+                        {member.bio}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.section>
+          )}
 
         </div>
       </main>

@@ -31,6 +31,7 @@ import {
   ChevronDown,
   X,
   Upload,
+  ShieldCheck,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -1038,21 +1039,28 @@ export default function AdminDashboardPage() {
               ))}
             </div>
 
-            {/* Portfolio Edit Modal */}
-            {editingPortfolio && (
-              <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-                <div className="w-full max-w-2xl glass-card p-6 sm:p-8 rounded-3xl border border-slate-700 max-h-[90vh] overflow-y-auto space-y-6">
-                  <h3 className="text-xl font-bold text-white">Edit Portfolio Project</h3>
+            {/* Portfolio Edit Modal with Portal */}
+            {editingPortfolio && mounted && createPortal(
+              <div className="fixed inset-0 z-[9999] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+                <div className="w-full max-w-2xl bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-amber-500/50 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto my-auto text-white">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 className="text-xl font-bold text-white">
+                      {editingPortfolio.id.startsWith('proj-') ? 'Add Showcase Project' : 'Edit Portfolio Project'}
+                    </h3>
+                    <button type="button" onClick={() => setEditingPortfolio(null)} className="p-1.5 rounded-full bg-slate-900 text-slate-400 hover:text-white">
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
 
                   <div className="space-y-4 text-sm">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1">Project Title</label>
                         <input
                           type="text"
                           value={editingPortfolio.title}
                           onChange={(e) => setEditingPortfolio({ ...editingPortfolio, title: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold"
                         />
                       </div>
                       <div>
@@ -1061,18 +1069,18 @@ export default function AdminDashboardPage() {
                           type="text"
                           value={editingPortfolio.slug || ''}
                           onChange={(e) => setEditingPortfolio({ ...editingPortfolio, slug: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-mono text-xs"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1">Category</label>
                         <select
                           value={editingPortfolio.category}
                           onChange={(e) => setEditingPortfolio({ ...editingPortfolio, category: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm"
                         >
                           <option value="Digital Marketing & SEO">Digital Marketing & SEO</option>
                           <option value="Graphics Designing">Graphics Designing</option>
@@ -1093,78 +1101,112 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
 
+                    {/* Portfolio Image Uploader */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Image Asset URL</label>
-                      <input
-                        type="text"
-                        value={editingPortfolio.imageUrl}
-                        onChange={(e) => setEditingPortfolio({ ...editingPortfolio, imageUrl: e.target.value })}
-                        placeholder="/assets/Desktop - 1.png"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                      />
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Project Showcase Image
+                      </label>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                        <div className="relative w-24 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
+                          <Image
+                            src={editingPortfolio.imageUrl || '/assets/Desktop - 1.png'}
+                            alt="Project Preview"
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
+
+                        <div className="flex-1 space-y-2 w-full">
+                          <div className="flex items-center gap-2">
+                            <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md">
+                              <Upload className="w-4 h-4" />
+                              <span>{uploadingImage ? 'Uploading Image...' : 'Upload Image File'}</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                disabled={uploadingImage}
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  setUploadingImage(true);
+                                  try {
+                                    const formData = new FormData();
+                                    formData.append('file', file);
+                                    formData.append('folder', 'um_digital/portfolio');
+                                    const res = await fetch('/api/upload', {
+                                      method: 'POST',
+                                      body: formData,
+                                    });
+                                    const json = await res.json();
+                                    if (json.url) {
+                                      setEditingPortfolio({ ...editingPortfolio, imageUrl: json.url });
+                                    } else if (json.error) {
+                                      alert('Upload error: ' + json.error);
+                                    }
+                                  } catch (err) {
+                                    alert('Failed to upload image file.');
+                                  } finally {
+                                    setUploadingImage(false);
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
+
+                          <input
+                            type="text"
+                            value={editingPortfolio.imageUrl}
+                            onChange={(e) => setEditingPortfolio({ ...editingPortfolio, imageUrl: e.target.value })}
+                            placeholder="/assets/Desktop - 1.png or image URL"
+                            className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono focus:outline-none"
+                          />
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Video Embed URL (Optional YouTube / Vimeo)</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Video Embed URL (Optional)</label>
                         <input
                           type="text"
                           value={editingPortfolio.videoUrl || ''}
                           onChange={(e) => setEditingPortfolio({ ...editingPortfolio, videoUrl: e.target.value })}
                           placeholder="https://www.youtube.com/embed/..."
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Live URL (Optional)</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Live Solution URL (Optional)</label>
                         <input
                           type="text"
                           value={editingPortfolio.liveUrl || ''}
                           onChange={(e) => setEditingPortfolio({ ...editingPortfolio, liveUrl: e.target.value })}
                           placeholder="https://example.com"
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Description</label>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Short Summary Description</label>
                       <textarea
                         rows={3}
                         value={editingPortfolio.description}
                         onChange={(e) => setEditingPortfolio({ ...editingPortfolio, description: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm"
                       />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">The Challenge</label>
-                        <textarea
-                          rows={4}
-                          value={editingPortfolio.challenge || ''}
-                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, challenge: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Our Solution</label>
-                        <textarea
-                          rows={4}
-                          value={editingPortfolio.solution || ''}
-                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, solution: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                        />
-                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
-                    <button onClick={() => setEditingPortfolio(null)} className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold">
+                    <button type="button" onClick={() => setEditingPortfolio(null)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold">
                       Cancel
                     </button>
                     <button
+                      type="button"
                       onClick={() => {
                         const existingIdx = data.portfolio.findIndex((p) => p.id === editingPortfolio.id);
                         const updated = [...data.portfolio];
@@ -1178,13 +1220,14 @@ export default function AdminDashboardPage() {
                         setEditingPortfolio(null);
                         handleSaveData(newData);
                       }}
-                      className="px-5 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-semibold"
+                      className="px-6 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-bold shadow-lg shadow-amber-600/25"
                     >
-                      Save Project
+                      Save Project Changes
                     </button>
                   </div>
                 </div>
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         )}
@@ -1955,6 +1998,132 @@ export default function AdminDashboardPage() {
                     onChange={(e) => setData({ ...data, settings: { ...data.settings, logoSecondaryUrl: e.target.value } })}
                     className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
                   />
+                </div>
+              </div>
+            </div>
+
+            {/* Leadership & About Page Profile Configurations */}
+            <div className="pt-6 border-t border-slate-800 space-y-5">
+              <h4 className="text-lg font-bold text-white">About Page Leadership & Registration Media</h4>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 mb-1 uppercase">Leadership Message Text</label>
+                <textarea
+                  rows={3}
+                  value={data.companyProfile?.ceoMessage || ''}
+                  onChange={(e) => setData({ ...data, companyProfile: { ...data.companyProfile, ceoMessage: e.target.value } })}
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm"
+                  placeholder="Leadership quote message displayed on /about page..."
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Leadership Image Uploader */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Leadership Photo Image</label>
+                  <div className="flex items-center gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
+                      <Image
+                        src={data.companyProfile?.ceoImage || '/assets/team/placeholder.png'}
+                        alt="Leadership Preview"
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload Photo</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            try {
+                              const formData = new FormData();
+                              formData.append('file', file);
+                              formData.append('folder', 'um_digital/about');
+                              const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                              const json = await res.json();
+                              if (json.url) {
+                                const newData = { ...data, companyProfile: { ...data.companyProfile, ceoImage: json.url } };
+                                setData(newData);
+                                handleSaveData(newData);
+                              }
+                            } catch (err) {
+                              alert('Failed to upload image.');
+                            }
+                          }}
+                        />
+                      </label>
+                      <input
+                        type="text"
+                        value={data.companyProfile?.ceoImage || ''}
+                        onChange={(e) => setData({ ...data, companyProfile: { ...data.companyProfile, ceoImage: e.target.value } })}
+                        placeholder="Image URL..."
+                        className="w-full px-3 py-1 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Certificate Image Uploader */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Registration Certificate Image</label>
+                  <div className="flex items-center gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                    <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
+                      {data.companyProfile?.certificateImage ? (
+                        <Image
+                          src={data.companyProfile.certificateImage}
+                          alt="Certificate Preview"
+                          fill
+                          className="object-cover"
+                          unoptimized
+                        />
+                      ) : (
+                        <ShieldCheck className="w-8 h-8 text-amber-400 m-auto" />
+                      )}
+                    </div>
+                    <div className="flex-1 space-y-2">
+                      <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload Certificate</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            try {
+                              const formData = new FormData();
+                              formData.append('file', file);
+                              formData.append('folder', 'um_digital/about');
+                              const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                              const json = await res.json();
+                              if (json.url) {
+                                const newData = { ...data, companyProfile: { ...data.companyProfile, certificateImage: json.url } };
+                                setData(newData);
+                                handleSaveData(newData);
+                              }
+                            } catch (err) {
+                              alert('Failed to upload certificate image.');
+                            }
+                          }}
+                        />
+                      </label>
+                      <input
+                        type="text"
+                        value={data.companyProfile?.certificateImage || ''}
+                        onChange={(e) => setData({ ...data, companyProfile: { ...data.companyProfile, certificateImage: e.target.value } })}
+                        placeholder="Certificate Image URL..."
+                        className="w-full px-3 py-1 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

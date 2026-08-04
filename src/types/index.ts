@@ -77,6 +77,7 @@ export interface PortfolioProject {
 export interface CompanyProfile {
   ceoMessage?: string;
   ceoImage?: string;
+  certificateImage?: string;
   registeredName?: string;
   companyNumber?: string;
   jurisdiction?: string;

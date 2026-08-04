@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ShieldCheck, User, Lock, ArrowRight, AlertCircle } from 'lucide-react';
 
 export default function AdminLoginPage() {
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -105,10 +105,6 @@ export default function AdminLoginPage() {
                 className="w-full pl-11 pr-4 py-3 rounded-2xl bg-slate-900/80 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors"
               />
             </div>
-          </div>
-
-          <div className="p-3 rounded-2xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 text-center">
-            💡 Default Login: <strong className="text-amber-400">admin</strong> / Password: <strong className="text-amber-400">adminpassword123</strong>
           </div>
 
           <button

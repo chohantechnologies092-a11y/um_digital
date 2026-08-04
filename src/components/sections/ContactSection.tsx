@@ -40,8 +40,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ services, settin
       if (res.ok && result.success) {
         setStatusMsg({
           type: 'success',
-          text: 'Thank you! Your inquiry has been received. Our lead architect will review your scope and contact you within 2 hours.',
+          text: 'Inquiry saved to Dashboard Inbox! Opening WhatsApp to send your message directly...',
         });
+
+        // Format phone & WhatsApp message
+        const rawPhone = settings.contactPhone || '923000000000';
+        let cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+        if (cleanPhone.startsWith('03')) {
+          cleanPhone = '92' + cleanPhone.slice(1);
+        }
+
+        const text = `Hello UM Digital Agency!%0A%0A*New Inquiry Lead:*%0A👤 *Name:* ${encodeURIComponent(formData.name)}%0A📧 *Email:* ${encodeURIComponent(formData.email)}%0A📞 *Phone:* ${encodeURIComponent(formData.phone || 'N/A')}%0A🛠️ *Service:* ${encodeURIComponent(formData.serviceRequested)}%0A💰 *Budget:* ${encodeURIComponent(formData.budgetRange)}%0A%0A📝 *Message:*%0A${encodeURIComponent(formData.message)}`;
+
+        const waUrl = `https://wa.me/${cleanPhone}?text=${text}`;
+
+        setTimeout(() => {
+          window.open(waUrl, '_blank');
+        }, 800);
+
         setFormData({
           name: '',
           email: '',

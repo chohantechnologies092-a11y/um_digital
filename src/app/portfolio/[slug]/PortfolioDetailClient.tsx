@@ -248,7 +248,7 @@ export default function PortfolioDetailClient({ data, project }: { data: AgencyD
                 href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-brand-orange to-brand-red text-white font-bold text-lg hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,145,0,0.4)]"
               >
-                Let's Work Together
+                Let&apos;s Work Together
               </Link>
             </div>
           </div>

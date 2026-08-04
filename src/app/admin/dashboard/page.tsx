@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -26,6 +27,10 @@ import {
   Eye,
   RefreshCw,
   SlidersHorizontal,
+  ChevronUp,
+  ChevronDown,
+  X,
+  Upload,
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -35,6 +40,8 @@ export default function AdminDashboardPage() {
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'hero' | 'services' | 'portfolio' | 'testimonials' | 'team' | 'leads' | 'clients' | 'settings'>('overview');
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   // Service Edit State
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
@@ -42,8 +49,10 @@ export default function AdminDashboardPage() {
   const [editingTestimonial, setEditingTestimonial] = useState<TestimonialItem | null>(null);
   const [editingTeam, setEditingTeam] = useState<TeamMember | null>(null);
   const [editingClient, setEditingClient] = useState<ClientItem | null>(null);
+  const [newFeatureInput, setNewFeatureInput] = useState('');
 
   useEffect(() => {
+    setMounted(true);
     const auth = localStorage.getItem('um_admin_auth');
     if (!auth) {
       router.push('/admin/login');
@@ -523,24 +532,27 @@ export default function AdminDashboardPage() {
         {/* TAB 3: SERVICES */}
         {activeTab === 'services' && (
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-white">Agency Services List</h3>
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-white">Agency Services Management</h3>
+                <p className="text-xs text-slate-400">Manage all service offerings, icons, capabilities, descriptions, and page routes</p>
+              </div>
               <button
                 onClick={() => {
                   const newServ: ServiceItem = {
                     id: 'service-' + Date.now(),
                     slug: 'new-service-' + Date.now(),
                     title: 'New Custom Service',
-                    shortDesc: 'Short description of new service',
-                    fullDesc: 'Full comprehensive service description',
+                    shortDesc: 'High-impact digital service solution for growing brands.',
+                    fullDesc: 'Comprehensive service breakdown including strategy, execution, technical architecture, and long-term support.',
                     icon: 'Sparkles',
-                    features: ['Feature 1', 'Feature 2'],
+                    features: ['Strategic Planning', 'Custom Execution', 'Dedicated Support'],
                     active: true,
                     order: data.services.length + 1,
                   };
                   setEditingService(newServ);
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-indigo-600/30"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Service</span>
@@ -549,143 +561,376 @@ export default function AdminDashboardPage() {
 
             {/* List Table */}
             <div className="grid grid-cols-1 gap-4">
-              {data.services.map((service, index) => (
-                <div key={service.id} className="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-cyan-400">
-                      <DynamicIcon name={service.icon} className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-white text-base">{service.title}</h4>
-                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full ${service.active ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-slate-800 text-slate-400'}`}>
-                          {service.active ? 'Active' : 'Hidden'}
-                        </span>
+              {data.services
+                .slice()
+                .sort((a, b) => (a.order || 0) - (b.order || 0))
+                .map((service, index) => (
+                  <div key={service.id} className="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 flex-1">
+                      <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-amber-400 flex-shrink-0">
+                        <DynamicIcon name={service.icon} className="w-6 h-6" />
                       </div>
-                      <p className="text-xs text-gray-400 mt-1 max-w-xl">{service.shortDesc}</p>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h4 className="font-bold text-white text-base">{service.title}</h4>
+                          <span className={`px-2.5 py-0.5 text-[10px] font-extrabold rounded-full ${service.active ? 'bg-emerald-950 text-emerald-300 border border-emerald-800' : 'bg-slate-800 text-slate-400'}`}>
+                            {service.active ? '● Active' : '○ Hidden'}
+                          </span>
+                          <span className="text-[10px] font-bold text-cyan-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded-full">
+                            Order: #{service.order || index + 1}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-300 line-clamp-1">{service.shortDesc}</p>
+                        <div className="flex items-center gap-3 text-[11px] text-slate-400 pt-1 flex-wrap">
+                          <span className="text-amber-400 font-semibold">{(service.features || []).length} Capabilities</span>
+                          {service.slug && (
+                            <Link href={`/services/${service.slug}`} target="_blank" className="text-cyan-400 hover:underline flex items-center gap-1">
+                              <span>/services/{service.slug}</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-end md:self-auto flex-wrap">
+                      {/* Reorder Buttons */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const idx = data.services.findIndex(s => s.id === service.id);
+                          if (idx > 0) {
+                            const updated = [...data.services];
+                            const temp = updated[idx].order;
+                            updated[idx].order = updated[idx - 1].order;
+                            updated[idx - 1].order = temp;
+                            const newData = { ...data, services: updated };
+                            setData(newData);
+                            handleSaveData(newData);
+                          }
+                        }}
+                        className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 disabled:opacity-30"
+                        title="Move Up"
+                        disabled={index === 0}
+                      >
+                        <ChevronUp className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const idx = data.services.findIndex(s => s.id === service.id);
+                          if (idx < data.services.length - 1) {
+                            const updated = [...data.services];
+                            const temp = updated[idx].order;
+                            updated[idx].order = updated[idx + 1].order;
+                            updated[idx + 1].order = temp;
+                            const newData = { ...data, services: updated };
+                            setData(newData);
+                            handleSaveData(newData);
+                          }
+                        }}
+                        className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 disabled:opacity-30"
+                        title="Move Down"
+                        disabled={index === data.services.length - 1}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
+
+                      {/* Quick Toggle Active */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = data.services.map((s) => s.id === service.id ? { ...s, active: !s.active } : s);
+                          const newData = { ...data, services: updated };
+                          setData(newData);
+                          handleSaveData(newData);
+                        }}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold border ${service.active ? 'bg-amber-950/60 border-amber-800 text-amber-300 hover:bg-amber-900' : 'bg-emerald-950/60 border-emerald-800 text-emerald-300 hover:bg-emerald-900'}`}
+                      >
+                        {service.active ? 'Hide' : 'Activate'}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setEditingService({ ...service })}
+                        className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-400 border border-slate-800"
+                        title="Edit Service"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (confirm(`Are you sure you want to delete "${service.title}"?`)) {
+                            const updated = data.services.filter((s) => s.id !== service.id);
+                            const newData = { ...data, services: updated };
+                            setData(newData);
+                            handleSaveData(newData);
+                          }
+                        }}
+                        className="p-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 text-rose-400 border border-rose-900/60"
+                        title="Delete Service"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2 self-end md:self-auto">
-                    <button
-                      onClick={() => setEditingService({ ...service })}
-                      className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-400 border border-slate-800"
-                      title="Edit Service"
-                    >
-                      <Edit className="w-4 h-4" />
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        const updated = data.services.filter((s) => s.id !== service.id);
-                        const newData = { ...data, services: updated };
-                        setData(newData);
-                        handleSaveData(newData);
-                      }}
-                      className="p-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 text-rose-400 border border-rose-900/60"
-                      title="Delete Service"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
 
-            {/* Service Modal Form */}
-            {editingService && (
-              <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-                <div className="w-full max-w-2xl glass-card p-6 sm:p-8 rounded-3xl border border-slate-700 max-h-[90vh] overflow-y-auto space-y-6">
-                  <h3 className="text-xl font-bold text-white">Edit Service</h3>
+            {/* Service Modal Form with Portal */}
+            {editingService && mounted && createPortal(
+              <div className="fixed inset-0 z-[9999] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+                <div className="w-full max-w-3xl bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-amber-500/50 shadow-2xl max-h-[90vh] overflow-y-auto space-y-6 my-auto text-white">
                   
-                  <div className="space-y-4 text-sm">
-                    <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                        <DynamicIcon name={editingService.icon} className="w-5 h-5" />
+                      </div>
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Title</label>
+                        <h3 className="text-xl font-bold text-white">
+                          {editingService.id.startsWith('service-') && editingService.title === 'New Custom Service'
+                            ? 'Add New Service'
+                            : `Edit: ${editingService.title}`}
+                        </h3>
+                        <p className="text-xs text-slate-400">Update service title, icon, descriptions, and deliverables</p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setEditingService(null)}
+                      className="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-5 text-sm">
+                    
+                    {/* Title & Slug */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Service Title</label>
                         <input
                           type="text"
                           value={editingService.title}
-                          onChange={(e) => setEditingService({ ...editingService, title: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          onChange={(e) => {
+                            const newTitle = e.target.value;
+                            const generatedSlug = newTitle
+                              .toLowerCase()
+                              .replace(/[^a-z0-9]+/g, '-')
+                              .replace(/(^-|-$)/g, '');
+                            setEditingService({
+                              ...editingService,
+                              title: newTitle,
+                              slug: editingService.slug === 'new-service' || !editingService.slug ? generatedSlug : editingService.slug
+                            });
+                          }}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm font-semibold"
+                          placeholder="e.g. Digital Marketing"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1">URL Slug (e.g. digital-marketing)</label>
-                        <input
-                          type="text"
-                          value={editingService.slug}
-                          onChange={(e) => setEditingService({ ...editingService, slug: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                        />
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={editingService.slug}
+                            onChange={(e) => setEditingService({ ...editingService, slug: e.target.value })}
+                            className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-300 focus:outline-none focus:border-indigo-500 text-sm font-mono"
+                          />
+                        </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    {/* Status & Priority Order */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Lucide Icon Name (e.g. TrendingUp, Search, Code2)</label>
-                        <input
-                          type="text"
-                          value={editingService.icon}
-                          onChange={(e) => setEditingService({ ...editingService, icon: e.target.value })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 mb-1">Status</label>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Status Visibility</label>
                         <select
                           value={editingService.active ? 'true' : 'false'}
                           onChange={(e) => setEditingService({ ...editingService, active: e.target.value === 'true' })}
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm font-semibold"
                         >
-                          <option value="true">Active (Visible)</option>
-                          <option value="false">Hidden</option>
+                          <option value="true">Active (Visible on Website)</option>
+                          <option value="false">Hidden (Draft)</option>
                         </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Display Priority Order (1 = Top)</label>
+                        <input
+                          type="number"
+                          value={editingService.order || 1}
+                          onChange={(e) => setEditingService({ ...editingService, order: parseInt(e.target.value) || 1 })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm font-semibold"
+                        />
                       </div>
                     </div>
 
+                    {/* Icon Selection with Presets */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Short Description (Card summary)</label>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label className="block text-xs font-semibold text-slate-300">
+                          Lucide Icon Name: <span className="text-amber-400 font-bold">{editingService.icon}</span>
+                        </label>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                          <span>Preview:</span>
+                          <div className="w-6 h-6 rounded-lg bg-slate-900 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                            <DynamicIcon name={editingService.icon} className="w-4 h-4" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <input
+                        type="text"
+                        value={editingService.icon}
+                        onChange={(e) => setEditingService({ ...editingService, icon: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white mb-2 text-sm font-mono"
+                        placeholder="e.g. TrendingUp"
+                      />
+
+                      {/* Icon Preset Picker Grid */}
+                      <div className="pt-1">
+                        <p className="text-[11px] text-slate-400 mb-1.5 font-semibold">Choose from Popular Icons:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            'TrendingUp', 'Search', 'Palette', 'Code2', 'Video', 'PlaySquare', 
+                            'Sparkles', 'Layers', 'Globe', 'Shield', 'Zap', 'Activity', 
+                            'Cpu', 'Megaphone', 'Camera', 'Laptop', 'Server', 'Workflow', 'PieChart'
+                          ].map((iconName) => (
+                            <button
+                              key={iconName}
+                              type="button"
+                              onClick={() => setEditingService({ ...editingService, icon: iconName })}
+                              className={`p-2 rounded-xl border transition-all flex items-center gap-1.5 text-xs ${
+                                editingService.icon === iconName
+                                  ? 'bg-amber-500/20 border-amber-400 text-amber-300 font-bold'
+                                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                              }`}
+                            >
+                              <DynamicIcon name={iconName} className="w-4 h-4" />
+                              <span>{iconName}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Short Description */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Short Description (Card Summary)</label>
                       <textarea
                         rows={2}
                         value={editingService.shortDesc}
                         onChange={(e) => setEditingService({ ...editingService, shortDesc: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm leading-relaxed"
+                        placeholder="Brief 1-2 sentence overview for home page cards..."
                       />
                     </div>
 
+                    {/* Full Description */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Full Description</label>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Full Comprehensive Description (Detailed Scope & Page view)</label>
                       <textarea
                         rows={4}
                         value={editingService.fullDesc}
                         onChange={(e) => setEditingService({ ...editingService, fullDesc: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm leading-relaxed"
+                        placeholder="Detailed breakdown of deliverables, process, and strategic benefits..."
                       />
                     </div>
 
+                    {/* Dynamic Capabilities / Features List */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-1">Capabilities (Comma Separated)</label>
-                      <input
-                        type="text"
-                        value={editingService.features?.join(', ')}
-                        onChange={(e) => setEditingService({ ...editingService, features: e.target.value.split(',').map((s) => s.trim()) })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white"
-                      />
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Deliverables & Capabilities List (Shown in Card & Detailed View)
+                      </label>
+                      
+                      {/* Current Feature Tags */}
+                      <div className="flex flex-wrap gap-2 mb-3 bg-slate-900/80 p-3 rounded-xl border border-slate-800 min-h-[48px]">
+                        {(editingService.features || []).map((feat, idx) => (
+                          <div
+                            key={idx}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-950 border border-indigo-700 text-indigo-200 text-xs font-semibold"
+                          >
+                            <span>{feat}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updatedFeats = (editingService.features || []).filter((_, i) => i !== idx);
+                                setEditingService({ ...editingService, features: updatedFeats });
+                              }}
+                              className="text-indigo-400 hover:text-rose-400 transition-colors"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+
+                        {(!editingService.features || editingService.features.length === 0) && (
+                          <span className="text-xs text-slate-500 py-1">No capabilities added yet. Add below:</span>
+                        )}
+                      </div>
+
+                      {/* Add Capability Form Input */}
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={newFeatureInput}
+                          onChange={(e) => setNewFeatureInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              if (newFeatureInput.trim()) {
+                                setEditingService({
+                                  ...editingService,
+                                  features: [...(editingService.features || []), newFeatureInput.trim()]
+                                });
+                                setNewFeatureInput('');
+                              }
+                            }
+                          }}
+                          placeholder="Type new deliverable (e.g. Meta Ads Setup) and press Enter or Add..."
+                          className="flex-1 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-xs"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (newFeatureInput.trim()) {
+                              setEditingService({
+                                ...editingService,
+                                features: [...(editingService.features || []), newFeatureInput.trim()]
+                              });
+                              setNewFeatureInput('');
+                            }
+                          }}
+                          className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-colors flex items-center gap-1"
+                        >
+                          <Plus className="w-4 h-4" />
+                          <span>Add</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+                  {/* Footer Actions */}
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-800">
                     <button
+                      type="button"
                       onClick={() => setEditingService(null)}
-                      className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold"
+                      className="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 text-xs font-semibold hover:text-white"
                     >
                       Cancel
                     </button>
                     <button
+                      type="button"
                       onClick={() => {
                         const existingIdx = data.services.findIndex((s) => s.id === editingService.id);
-                        let updated = [...data.services];
+                        const updated = [...data.services];
                         if (existingIdx >= 0) {
                           updated[existingIdx] = editingService;
                         } else {
@@ -696,13 +941,14 @@ export default function AdminDashboardPage() {
                         setEditingService(null);
                         handleSaveData(newData);
                       }}
-                      className="px-5 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-semibold"
+                      className="px-6 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-extrabold shadow-lg shadow-amber-600/25"
                     >
-                      Save Service
+                      Save Service Changes
                     </button>
                   </div>
                 </div>
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         )}
@@ -904,7 +1150,7 @@ export default function AdminDashboardPage() {
                     <button
                       onClick={() => {
                         const existingIdx = data.portfolio.findIndex((p) => p.id === editingPortfolio.id);
-                        let updated = [...data.portfolio];
+                        const updated = [...data.portfolio];
                         if (existingIdx >= 0) {
                           updated[existingIdx] = editingPortfolio;
                         } else {
@@ -922,6 +1168,502 @@ export default function AdminDashboardPage() {
                   </div>
                 </div>
               </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 5: TESTIMONIALS (CLIENT REVIEWS) */}
+        {activeTab === 'testimonials' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-white">Client Reviews & Testimonials</h3>
+                <p className="text-xs text-slate-400">Manage client feedback, star ratings, and featured reviews on home page</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const newTestimonial: TestimonialItem = {
+                    id: 'testimonial-' + Date.now(),
+                    name: 'New Client',
+                    role: 'CEO / Founder',
+                    company: 'Company Name',
+                    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+                    rating: 5,
+                    review: 'Exceptional service and outstanding results. Highly recommended digital partner!',
+                    featured: true,
+                  };
+                  setEditingTestimonial(newTestimonial);
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-indigo-600/30"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add New Review</span>
+              </button>
+            </div>
+
+            {/* Testimonials List */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {(data.testimonials || []).map((t) => (
+                <div key={t.id} className="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-900 border border-slate-700 flex-shrink-0">
+                          <Image src={t.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'} alt={t.name} fill className="object-cover" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-white text-base">{t.name}</h4>
+                          <p className="text-xs text-slate-400">{t.role} • <span className="text-cyan-400">{t.company}</span></p>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = data.testimonials.map(item => item.id === t.id ? { ...item, featured: !item.featured } : item);
+                          const newData = { ...data, testimonials: updated };
+                          setData(newData);
+                          handleSaveData(newData);
+                        }}
+                        className={`px-2.5 py-1 rounded-full text-[10px] font-bold border transition-colors ${
+                          t.featured ? 'bg-amber-950/80 text-amber-300 border-amber-700' : 'bg-slate-900 text-slate-400 border-slate-800'
+                        }`}
+                      >
+                        {t.featured ? '★ Featured' : '☆ Standard'}
+                      </button>
+                    </div>
+
+                    {/* Star Rating */}
+                    <div className="flex items-center gap-1 text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-4 h-4 ${i < t.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-700'}`} />
+                      ))}
+                      <span className="text-xs font-bold text-slate-300 ml-1.5">{t.rating}.0 / 5.0</span>
+                    </div>
+
+                    <p className="text-xs text-slate-300 italic leading-relaxed bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80">
+                      &quot;{t.review}&quot;
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                    <button
+                      type="button"
+                      onClick={() => setEditingTestimonial({ ...t })}
+                      className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-400 border border-slate-800"
+                      title="Edit Review"
+                    >
+                      <Edit className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Delete review from "${t.name}"?`)) {
+                          const updated = data.testimonials.filter(item => item.id !== t.id);
+                          const newData = { ...data, testimonials: updated };
+                          setData(newData);
+                          handleSaveData(newData);
+                        }
+                      }}
+                      className="p-2 rounded-xl bg-rose-950/60 hover:bg-rose-900 text-rose-400 border border-rose-900/60"
+                      title="Delete Review"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Testimonial Edit Modal */}
+            {editingTestimonial && mounted && createPortal(
+              <div className="fixed inset-0 z-[9999] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+                <div className="w-full max-w-xl bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-amber-500/50 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto my-auto text-white">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 className="text-lg font-bold text-white">
+                      {editingTestimonial.id.startsWith('testimonial-') ? 'Add Client Review' : 'Edit Review'}
+                    </h3>
+                    <button type="button" onClick={() => setEditingTestimonial(null)} className="p-1.5 rounded-full bg-slate-900 text-slate-400 hover:text-white">
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Client Name</label>
+                        <input
+                          type="text"
+                          value={editingTestimonial.name}
+                          onChange={(e) => setEditingTestimonial({ ...editingTestimonial, name: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm font-semibold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Role / Designation</label>
+                        <input
+                          type="text"
+                          value={editingTestimonial.role}
+                          onChange={(e) => setEditingTestimonial({ ...editingTestimonial, role: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                          placeholder="e.g. CEO & Founder"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Company / Brand</label>
+                        <input
+                          type="text"
+                          value={editingTestimonial.company}
+                          onChange={(e) => setEditingTestimonial({ ...editingTestimonial, company: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Star Rating (1 - 5)</label>
+                        <select
+                          value={editingTestimonial.rating}
+                          onChange={(e) => setEditingTestimonial({ ...editingTestimonial, rating: parseInt(e.target.value) || 5 })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-amber-300 focus:outline-none focus:border-indigo-500 text-sm font-bold"
+                        >
+                          <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                          <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                          <option value="3">⭐⭐⭐ (3 Stars)</option>
+                          <option value="2">⭐⭐ (2 Stars)</option>
+                          <option value="1">⭐ (1 Star)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Avatar Image URL</label>
+                      <input
+                        type="text"
+                        value={editingTestimonial.avatarUrl}
+                        onChange={(e) => setEditingTestimonial({ ...editingTestimonial, avatarUrl: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-mono"
+                        placeholder="https://images.unsplash.com/..."
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Review Feedback Text</label>
+                      <textarea
+                        rows={4}
+                        value={editingTestimonial.review}
+                        onChange={(e) => setEditingTestimonial({ ...editingTestimonial, review: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm leading-relaxed"
+                        placeholder="Write client testimony review here..."
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-1">
+                      <input
+                        type="checkbox"
+                        id="featTestimonial"
+                        checked={editingTestimonial.featured}
+                        onChange={(e) => setEditingTestimonial({ ...editingTestimonial, featured: e.target.checked })}
+                        className="w-4 h-4 rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <label htmlFor="featTestimonial" className="text-xs font-semibold text-slate-300">
+                        Show as Featured Review on Home Page
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+                    <button type="button" onClick={() => setEditingTestimonial(null)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300">
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const existingIdx = data.testimonials.findIndex(t => t.id === editingTestimonial.id);
+                        const updated = [...data.testimonials];
+                        if (existingIdx >= 0) {
+                          updated[existingIdx] = editingTestimonial;
+                        } else {
+                          updated.push(editingTestimonial);
+                        }
+                        const newData = { ...data, testimonials: updated };
+                        setData(newData);
+                        setEditingTestimonial(null);
+                        handleSaveData(newData);
+                      }}
+                      className="px-5 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-bold shadow-lg shadow-amber-600/25"
+                    >
+                      Save Review
+                    </button>
+                  </div>
+                </div>
+              </div>,
+              document.body
+            )}
+          </div>
+        )}
+
+        {/* TAB 6: TEAM MEMBERS */}
+        {activeTab === 'team' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-white">Agency Team Members</h3>
+                <p className="text-xs text-slate-400">Manage creative leads, developers, and team profiles displayed on website</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const newMember: TeamMember = {
+                    id: 'team-' + Date.now(),
+                    name: 'New Team Member',
+                    role: 'Senior Digital Specialist',
+                    bio: 'Driving innovative digital strategies and robust full-stack engineering.',
+                    imageUrl: '/assets/team/placeholder.png',
+                    linkedinUrl: 'https://linkedin.com',
+                    githubUrl: 'https://github.com',
+                  };
+                  setEditingTeam(newMember);
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-indigo-600/30"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Team Member</span>
+              </button>
+            </div>
+
+            {/* Team Cards List */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(data.team || []).map((member) => (
+                <div key={member.id} className="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <div className="relative w-16 h-16 rounded-2xl overflow-hidden bg-slate-900 border border-slate-700 flex-shrink-0">
+                        <Image src={member.imageUrl || '/assets/team/placeholder.png'} alt={member.name} fill className="object-cover" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white text-base">{member.name}</h4>
+                        <span className="text-xs font-semibold text-amber-400">{member.role}</span>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+                      {member.bio}
+                    </p>
+
+                    {(member.linkedinUrl || member.githubUrl) && (
+                      <div className="flex items-center gap-3 text-xs text-slate-400 pt-1">
+                        {member.linkedinUrl && (
+                          <Link href={member.linkedinUrl} target="_blank" className="text-cyan-400 hover:underline flex items-center gap-1">
+                            <span>LinkedIn</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </Link>
+                        )}
+                        {member.githubUrl && (
+                          <Link href={member.githubUrl} target="_blank" className="text-slate-300 hover:underline flex items-center gap-1">
+                            <span>GitHub</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </Link>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+                    <button
+                      type="button"
+                      onClick={() => setEditingTeam({ ...member })}
+                      className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-400 border border-slate-800"
+                      title="Edit Member"
+                    >
+                      <Edit className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Delete team member "${member.name}"?`)) {
+                          const updated = data.team.filter(m => m.id !== member.id);
+                          const newData = { ...data, team: updated };
+                          setData(newData);
+                          handleSaveData(newData);
+                        }
+                      }}
+                      className="p-2 rounded-xl bg-rose-950/60 hover:bg-rose-900 text-rose-400 border border-rose-900/60"
+                      title="Delete Member"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Team Member Edit Modal */}
+            {editingTeam && mounted && createPortal(
+              <div className="fixed inset-0 z-[9999] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+                <div className="w-full max-w-xl bg-[#0b1329] p-6 sm:p-8 rounded-3xl border border-amber-500/50 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto my-auto text-white">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 className="text-lg font-bold text-white">
+                      {editingTeam.id.startsWith('team-') ? 'Add Team Member' : 'Edit Team Member'}
+                    </h3>
+                    <button type="button" onClick={() => setEditingTeam(null)} className="p-1.5 rounded-full bg-slate-900 text-slate-400 hover:text-white">
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-4 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <input
+                          type="text"
+                          value={editingTeam.name}
+                          onChange={(e) => setEditingTeam({ ...editingTeam, name: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm font-semibold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Role / Job Title</label>
+                        <input
+                          type="text"
+                          value={editingTeam.role}
+                          onChange={(e) => setEditingTeam({ ...editingTeam, role: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm"
+                          placeholder="e.g. Founder & Full-Stack Engineer"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Member Photo Image
+                      </label>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+                        {/* Photo Preview */}
+                        <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
+                          <Image
+                            src={editingTeam.imageUrl || '/assets/team/placeholder.png'}
+                            alt="Team Member Preview"
+                            fill
+                            className="object-cover"
+                            unoptimized
+                          />
+                        </div>
+
+                        <div className="flex-1 space-y-2 w-full">
+                          <div className="flex items-center gap-2">
+                            <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md">
+                              <Upload className="w-4 h-4" />
+                              <span>{uploadingImage ? 'Uploading Image...' : 'Upload Image File'}</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                disabled={uploadingImage}
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  setUploadingImage(true);
+                                  try {
+                                    const formData = new FormData();
+                                    formData.append('file', file);
+                                    formData.append('folder', 'um_digital/team');
+                                    const res = await fetch('/api/upload', {
+                                      method: 'POST',
+                                      body: formData,
+                                    });
+                                    const json = await res.json();
+                                    if (json.url) {
+                                      setEditingTeam({ ...editingTeam, imageUrl: json.url });
+                                    } else if (json.error) {
+                                      alert('Upload error: ' + json.error);
+                                    }
+                                  } catch (err) {
+                                    alert('Failed to upload image file.');
+                                  } finally {
+                                    setUploadingImage(false);
+                                  }
+                                }}
+                              />
+                            </label>
+                          </div>
+
+                          <input
+                            type="text"
+                            value={editingTeam.imageUrl}
+                            onChange={(e) => setEditingTeam({ ...editingTeam, imageUrl: e.target.value })}
+                            className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono focus:outline-none"
+                            placeholder="Or paste image URL here..."
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Short Bio</label>
+                      <textarea
+                        rows={3}
+                        value={editingTeam.bio}
+                        onChange={(e) => setEditingTeam({ ...editingTeam, bio: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm leading-relaxed"
+                        placeholder="Brief summary of experience & specialization..."
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">LinkedIn Profile URL</label>
+                        <input
+                          type="text"
+                          value={editingTeam.linkedinUrl || ''}
+                          onChange={(e) => setEditingTeam({ ...editingTeam, linkedinUrl: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-300 text-xs font-mono"
+                          placeholder="https://linkedin.com/in/..."
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">GitHub / Portfolio URL</label>
+                        <input
+                          type="text"
+                          value={editingTeam.githubUrl || ''}
+                          onChange={(e) => setEditingTeam({ ...editingTeam, githubUrl: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-300 text-xs font-mono"
+                          placeholder="https://github.com/..."
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+                    <button type="button" onClick={() => setEditingTeam(null)} className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300">
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const existingIdx = data.team.findIndex(m => m.id === editingTeam.id);
+                        const updated = [...data.team];
+                        if (existingIdx >= 0) {
+                          updated[existingIdx] = editingTeam;
+                        } else {
+                          updated.push(editingTeam);
+                        }
+                        const newData = { ...data, team: updated };
+                        setData(newData);
+                        setEditingTeam(null);
+                        handleSaveData(newData);
+                      }}
+                      className="px-5 py-2.5 rounded-xl gradient-bg-button text-white text-xs font-bold shadow-lg shadow-amber-600/25"
+                    >
+                      Save Team Member
+                    </button>
+                  </div>
+                </div>
+              </div>,
+              document.body
             )}
           </div>
         )}
@@ -1095,7 +1837,7 @@ export default function AdminDashboardPage() {
                     <button
                       onClick={() => {
                         const existingIdx = data.clients.findIndex((c) => c.id === editingClient.id);
-                        let updated = [...data.clients];
+                        const updated = [...data.clients];
                         if (existingIdx >= 0) {
                           updated[existingIdx] = editingClient;
                         } else {

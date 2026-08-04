@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 
 export async function POST(request: Request) {
@@ -7,6 +9,7 @@ export async function POST(request: Request) {
 
     let buffer: Buffer | null = null;
     let folder = 'um_digital/assets';
+    let originalFilename = 'uploaded-image.png';
 
     if (contentType.includes('multipart/form-data')) {
       const formData = await request.formData();
@@ -21,6 +24,7 @@ export async function POST(request: Request) {
         folder = customFolder;
       }
 
+      originalFilename = file.name || 'image.png';
       const arrayBuffer = await file.arrayBuffer();
       buffer = Buffer.from(arrayBuffer);
     } else {
@@ -44,32 +48,45 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to process image buffer' }, { status: 400 });
     }
 
-    // Check if Cloudinary environment variables are set
-    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY) {
-      return NextResponse.json(
-        {
-          error:
-            'Cloudinary credentials are not configured. Please set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET.',
-        },
-        { status: 500 }
-      );
+    // Try Cloudinary upload first if configured
+    if (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY) {
+      try {
+        const result = await uploadToCloudinary(buffer, folder);
+        return NextResponse.json({
+          success: true,
+          url: result.secure_url,
+          public_id: result.public_id,
+          format: result.format,
+          width: result.width,
+          height: result.height,
+        });
+      } catch (cloudErr) {
+        console.warn('Cloudinary upload failed, falling back to local storage:', cloudErr);
+      }
     }
 
-    const result = await uploadToCloudinary(buffer, folder);
+    // Local file storage fallback into public/uploads
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+
+    const safeName = originalFilename.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const filename = `${Date.now()}-${safeName}`;
+    const filePath = path.join(uploadsDir, filename);
+
+    fs.writeFileSync(filePath, buffer);
+    const localUrl = `/uploads/${filename}`;
 
     return NextResponse.json({
       success: true,
-      url: result.secure_url,
-      public_id: result.public_id,
-      format: result.format,
-      width: result.width,
-      height: result.height,
+      url: localUrl,
+      isLocal: true,
     });
-  } catch (error: any) {
-    console.error('Error uploading to Cloudinary:', error);
-    return NextResponse.json(
-      { error: error?.message || 'Server error uploading file to Cloudinary' },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Server error uploading file';
+    console.error('Error uploading image:', error);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+

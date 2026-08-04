@@ -246,7 +246,7 @@ export async function getAgencyDataAsync(): Promise<AgencyData> {
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
-      let doc = await AgencyDataModel.findOne().lean();
+      const doc = await AgencyDataModel.findOne().lean();
       if (!doc) {
         // Auto-seed MongoDB with local JSON data on first connect
         const initial = getAgencyData();

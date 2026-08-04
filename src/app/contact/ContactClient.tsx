@@ -7,16 +7,60 @@ import { Navbar } from '@/components/layout/Navbar';
 
 export default function ContactClient({ data }: { data: any }) {
   const settings = data.settings;
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    serviceRequested: 'Digital Marketing',
+    message: '',
+  });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+
+    try {
+      // 1. Post lead to API & Admin Dashboard Inbox
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fullName,
+          email: formData.email,
+          phone: formData.phone,
+          serviceRequested: formData.serviceRequested,
+          budgetRange: 'N/A',
+          message: formData.message,
+        }),
+      });
+
+      // 2. Format phone & WhatsApp URL
+      const rawPhone = settings.contactPhone || '923000000000';
+      let cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+      if (cleanPhone.startsWith('03')) {
+        cleanPhone = '92' + cleanPhone.slice(1);
+      }
+
+      const text = `Hello UM Digital Agency!%0A%0A*New Contact Inquiry:*%0A👤 *Name:* ${encodeURIComponent(fullName)}%0A📧 *Email:* ${encodeURIComponent(formData.email)}%0A📞 *Phone:* ${encodeURIComponent(formData.phone || 'N/A')}%0A🛠️ *Service:* ${encodeURIComponent(formData.serviceRequested)}%0A%0A📝 *Message:*%0A${encodeURIComponent(formData.message)}`;
+
+      const waUrl = `https://wa.me/${cleanPhone}?text=${text}`;
+
+      setTimeout(() => {
+        window.open(waUrl, '_blank');
+      }, 500);
+
       setSubmitted(true);
-    }, 1500);
+    } catch (err) {
+      console.error('Submit error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,7 +94,7 @@ export default function ContactClient({ data }: { data: any }) {
               transition={{ delay: 0.1 }}
               className="text-4xl sm:text-5xl md:text-6xl font-black text-white"
             >
-              Let's Build Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-blue">Amazing</span>
+              Let&apos;s Build Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-blue">Amazing</span>
             </motion.h1>
             
             <motion.p 
@@ -91,7 +135,7 @@ export default function ContactClient({ data }: { data: any }) {
                     <Phone className="w-5 h-5 text-brand-orange" />
                   </div>
                   <div>
-                    <p className="text-sm text-gray-400 font-medium mb-1">Call Us</p>
+                    <p className="text-sm text-gray-400 font-medium mb-1">Call Us / WhatsApp</p>
                     <a href={`tel:${settings.contactPhone}`} className="text-lg text-white font-medium hover:text-brand-orange transition-colors">
                       {settings.contactPhone}
                     </a>
@@ -127,10 +171,20 @@ export default function ContactClient({ data }: { data: any }) {
                   <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-4 border border-green-500/30">
                     <Send className="w-10 h-10 text-green-500" />
                   </div>
-                  <h3 className="text-3xl font-bold text-white">Message Sent!</h3>
-                  <p className="text-gray-400">We've received your inquiry and will contact you shortly.</p>
+                  <h3 className="text-3xl font-bold text-white">Inquiry Sent to WhatsApp & Dashboard!</h3>
+                  <p className="text-gray-400">We&apos;ve saved your inquiry to our dashboard and opened WhatsApp to connect with you directly.</p>
                   <button 
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        phone: '',
+                        serviceRequested: 'Digital Marketing',
+                        message: '',
+                      });
+                    }}
                     className="mt-6 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
                   >
                     Send Another Message
@@ -144,6 +198,8 @@ export default function ContactClient({ data }: { data: any }) {
                       <input 
                         required
                         type="text" 
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors"
                         placeholder="John"
                       />
@@ -153,31 +209,52 @@ export default function ContactClient({ data }: { data: any }) {
                       <input 
                         required
                         type="text" 
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors"
                         placeholder="Doe"
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-400">Email Address</label>
-                    <input 
-                      required
-                      type="email" 
-                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors"
-                      placeholder="john@company.com"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-400">Email Address</label>
+                      <input 
+                        required
+                        type="email" 
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors"
+                        placeholder="john@company.com"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-400">Phone / WhatsApp Number</label>
+                      <input 
+                        type="text" 
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors"
+                        placeholder="+92 300 1234567"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-400">Service of Interest</label>
-                    <select className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors appearance-none">
-                      <option value="">Select a service</option>
-                      <option value="digital-marketing">Digital Marketing</option>
-                      <option value="web-dev">Web / Software Development</option>
-                      <option value="design">Graphics & UI/UX</option>
-                      <option value="seo">SEO Optimization</option>
-                      <option value="other">Other</option>
+                    <select 
+                      value={formData.serviceRequested}
+                      onChange={(e) => setFormData({ ...formData, serviceRequested: e.target.value })}
+                      className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors appearance-none"
+                    >
+                      <option value="Digital Marketing">Digital Marketing</option>
+                      <option value="Web / Software Development">Web / Software Development</option>
+                      <option value="Graphics Designing & UI/UX">Graphics & UI/UX</option>
+                      <option value="SEO Optimization">SEO Optimization</option>
+                      <option value="Photography & Videography">Photography & Videography</option>
+                      <option value="Video Animation & Motion Graphics">Video Animation & Motion Graphics</option>
                     </select>
                   </div>
 
@@ -186,6 +263,8 @@ export default function ContactClient({ data }: { data: any }) {
                     <textarea 
                       required
                       rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/50 transition-colors resize-none"
                       placeholder="Tell us about your project..."
                     ></textarea>
@@ -199,11 +278,11 @@ export default function ContactClient({ data }: { data: any }) {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Sending...</span>
+                        <span>Sending to WhatsApp...</span>
                       </>
                     ) : (
                       <>
-                        <span>Send Message</span>
+                        <span>Send Message to WhatsApp</span>
                         <Send className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </>
                     )}

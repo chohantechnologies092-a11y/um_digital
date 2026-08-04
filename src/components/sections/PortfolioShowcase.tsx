@@ -1,30 +1,24 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PortfolioProject } from '@/types';
-import { ExternalLink, Play, Sparkles, X, Layers } from 'lucide-react';
+import { ExternalLink, Play, Sparkles, X, ArrowRight } from 'lucide-react';
 
 interface PortfolioShowcaseProps {
   portfolio: PortfolioProject[];
 }
 
 export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio }) => {
-  const [activeCategory, setActiveCategory] = useState<string>('All');
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
-  // Memoize categories to prevent unnecessary recalculations
-  const categories = useMemo(() => {
-    return ['All', ...Array.from(new Set(portfolio.map((p) => p.category)))];
+  // Show top 4 featured cards on home page showcase
+  const displayedProjects = useMemo(() => {
+    return (portfolio || []).slice(0, 4);
   }, [portfolio]);
-
-  // Memoize filtered projects
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === 'All') return portfolio;
-    return portfolio.filter((p) => p.category === activeCategory);
-  }, [portfolio, activeCategory]);
 
   const handleImageError = (id: string) => {
     setFailedImages((prev) => ({ ...prev, [id]: true }));
@@ -35,7 +29,7 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
+        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card-dual border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider shadow-md">
             <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span>Featured Case Studies</span>
@@ -48,26 +42,9 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
           </p>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-5 py-2.5 rounded-2xl text-xs font-extrabold transition-all ${
-                activeCategory === category
-                  ? 'btn-logo-gradient text-white shadow-xl shadow-amber-600/30 border border-amber-400/50'
-                  : 'glass-card-dual text-slate-300 hover:text-white hover:bg-slate-900'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Portfolio Projects Grid */}
+        {/* Portfolio Projects Grid (Limited to 4 cards) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredProjects.map((project) => {
+          {displayedProjects.map((project) => {
             const hasFailed = failedImages[project.id];
             const fallbackSrc = '/assets/um digital logo sa-01.png';
 
@@ -97,7 +74,7 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
                     {project.videoUrl && (
                       <button
                         onClick={() => setSelectedVideo(project.videoUrl || null)}
-                        className="w-13 h-13 rounded-full bg-slate-900/90 text-white border border-amber-500/60 flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
+                        className="w-12 h-12 rounded-full bg-slate-900/90 text-white border border-amber-500/60 flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
                         title="Watch Reel / Video"
                       >
                         <Play className="w-5 h-5 fill-current ml-0.5" />
@@ -108,7 +85,7 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-13 h-13 rounded-full bg-slate-900/90 text-white border border-cyan-500/60 flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
+                        className="w-12 h-12 rounded-full bg-slate-900/90 text-white border border-cyan-500/60 flex items-center justify-center shadow-xl hover:scale-110 transition-transform"
                         title="View Live Solution"
                       >
                         <ExternalLink className="w-5 h-5" />
@@ -133,7 +110,7 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
                       </span>
                     )}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal line-clamp-2">
                     {project.description}
                   </p>
                 </div>
@@ -141,11 +118,23 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
             );
           })}
         </div>
+
+        {/* View More Action CTA */}
+        <div className="mt-16 text-center">
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl text-xs sm:text-sm font-black text-white btn-logo-gradient shadow-xl shadow-amber-600/30 hover:scale-105 transition-transform uppercase tracking-wider"
+          >
+            <span>View More Portfolio Projects ({portfolio.length})</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
       </div>
 
       {/* Video Modal Popup */}
-      {selectedVideo && (
-        <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
+      {selectedVideo && typeof window !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4">
           <div className="relative w-full max-w-4xl bg-slate-900 rounded-[2.5rem] overflow-hidden border border-amber-500/50 shadow-2xl animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setSelectedVideo(null)}
@@ -162,8 +151,10 @@ export const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({ portfolio 
               />
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
 };
+

@@ -84,22 +84,24 @@ export default function ServiceDetailClient({ data, service }: { data: AgencyDat
             </div>
 
             {/* Features */}
-            <div>
-              <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
-                <Check className="w-6 h-6 text-brand-blue" />
-                Key Capabilities
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {service.features.map((feature, i) => (
-                  <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4 hover:border-brand-orange/30 transition-colors">
-                    <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="w-4 h-4 text-brand-orange" />
+            {service.features && service.features.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <Check className="w-6 h-6 text-brand-blue" />
+                  Key Capabilities
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {service.features.map((feature, i) => (
+                    <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4 hover:border-brand-orange/30 transition-colors">
+                      <div className="w-8 h-8 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <Check className="w-4 h-4 text-brand-orange" />
+                      </div>
+                      <span className="text-gray-200 font-medium">{feature}</span>
                     </div>
-                    <span className="text-gray-200 font-medium">{feature}</span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Related Case Studies */}
             {relatedProjects.length > 0 && (
@@ -147,7 +149,7 @@ export default function ServiceDetailClient({ data, service }: { data: AgencyDat
               <div className="relative z-10">
                 <h3 className="text-3xl font-black mb-4">Ready to scale with {service.title}?</h3>
                 <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-                  Let's discuss how we can engineer a custom digital solution tailored to your specific business goals.
+                  Let&apos;s discuss how we can engineer a custom digital solution tailored to your specific business goals.
                 </p>
                 <Link 
                   href="/contact"

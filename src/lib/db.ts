@@ -251,13 +251,19 @@ export async function getAgencyDataAsync(): Promise<AgencyData> {
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
-      const doc = await AgencyDataModel.findOne().sort({ updatedAt: -1 }).lean();
-      if (!doc) {
+      let docs = await AgencyDataModel.find().lean();
+      if (docs.length === 0) {
         // Auto-seed MongoDB with local JSON data on first connect
         const initial = getAgencyData();
         await AgencyDataModel.create(initial);
         return initial;
       }
+      // If multiple duplicate docs exist in MongoDB, keep docs[0] and clean up others
+      if (docs.length > 1) {
+        const primaryId = docs[0]._id;
+        await AgencyDataModel.deleteMany({ _id: { $ne: primaryId } });
+      }
+      const doc = docs[0];
       return {
         settings: doc.settings,
         hero: doc.hero,
@@ -295,7 +301,28 @@ export async function saveAgencyDataAsync(data: AgencyData): Promise<boolean> {
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
-      await AgencyDataModel.findOneAndUpdate({}, data, { upsert: true, new: true, sort: { updatedAt: -1 } });
+      const existing = await AgencyDataModel.findOne();
+      if (existing) {
+        await AgencyDataModel.updateOne(
+          { _id: existing._id },
+          {
+            $set: {
+              settings: data.settings,
+              hero: data.hero,
+              companyProfile: data.companyProfile,
+              services: data.services,
+              portfolio: data.portfolio,
+              testimonials: data.testimonials,
+              team: data.team,
+              leads: data.leads,
+              clients: data.clients,
+            },
+          }
+        );
+        await AgencyDataModel.deleteMany({ _id: { $ne: existing._id } });
+      } else {
+        await AgencyDataModel.create(data);
+      }
       return true;
     }
   } catch (error) {
@@ -314,11 +341,17 @@ export async function saveLeadAsync(lead: import('@/types').ContactLead): Promis
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
       await ContactLeadModel.create(lead);
-      await AgencyDataModel.findOneAndUpdate(
-        {},
-        { $push: { leads: { $each: [lead], $position: 0 } } },
-        { upsert: true }
-      );
+      const existing = await AgencyDataModel.findOne();
+      if (existing) {
+        await AgencyDataModel.updateOne(
+          { _id: existing._id },
+          { $push: { leads: { $each: [lead], $position: 0 } } }
+        );
+      } else {
+        const initial = getAgencyData();
+        initial.leads.unshift(lead);
+        await AgencyDataModel.create(initial);
+      }
       return true;
     }
   } catch (error) {

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAgencyDataAsync, saveAgencyDataAsync } from '@/lib/db';
 import { AgencyData } from '@/types';
 
@@ -15,6 +16,7 @@ export async function POST(request: Request) {
     const updatedData = (await request.json()) as AgencyData;
     const success = await saveAgencyDataAsync(updatedData);
     if (success) {
+      revalidatePath('/', 'layout');
       return NextResponse.json({ message: 'Database updated successfully', data: updatedData });
     }
     return NextResponse.json({ error: 'Failed to write data to database' }, { status: 500 });

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { saveLeadAsync } from '@/lib/db';
 import { ContactLead } from '@/types';
 
@@ -24,6 +25,7 @@ export async function POST(request: Request) {
     };
 
     await saveLeadAsync(newLead);
+    revalidatePath('/', 'layout');
 
     return NextResponse.json({ success: true, lead: newLead, message: 'Thank you! Your inquiry has been received.' });
   } catch (error) {

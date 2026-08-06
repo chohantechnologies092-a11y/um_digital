@@ -297,7 +297,7 @@ export function saveAgencyData(data: AgencyData): boolean {
 }
 
 export async function saveAgencyDataAsync(data: AgencyData): Promise<boolean> {
-  saveAgencyData(data);
+  const localSaved = saveAgencyData(data);
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
@@ -324,11 +324,14 @@ export async function saveAgencyDataAsync(data: AgencyData): Promise<boolean> {
         await AgencyDataModel.create(data);
       }
       return true;
+    } else {
+      console.warn('saveAgencyDataAsync: MongoDB connection failed or returned null');
+      return localSaved;
     }
   } catch (error) {
     console.error('Error saving MongoDB agency data:', error);
+    return localSaved;
   }
-  return true;
 }
 
 export async function saveLeadAsync(lead: import('@/types').ContactLead): Promise<boolean> {

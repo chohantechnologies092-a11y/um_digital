@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
@@ -19,7 +17,9 @@ if (!global.mongooseCache) {
 const cached: MongooseCache = global.mongooseCache;
 
 export async function connectToDatabase(): Promise<typeof mongoose | null> {
-  if (!MONGODB_URI) {
+  const mongodbUri = process.env.MONGODB_URI;
+  if (!mongodbUri) {
+    console.warn('connectToDatabase: MONGODB_URI is not defined in environment variables');
     return null;
   }
 
@@ -33,7 +33,7 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
       serverSelectionTimeoutMS: 5000,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
+    cached.promise = mongoose.connect(mongodbUri, opts).then((mongooseInstance) => {
       return mongooseInstance;
     });
   }
@@ -42,6 +42,7 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
+    console.error('Error connecting to MongoDB Atlas:', e);
     throw e;
   }
 

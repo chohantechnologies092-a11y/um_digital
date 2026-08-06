@@ -251,7 +251,7 @@ export async function getAgencyDataAsync(): Promise<AgencyData> {
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
-      const doc = await AgencyDataModel.findOne().lean();
+      const doc = await AgencyDataModel.findOne().sort({ updatedAt: -1 }).lean();
       if (!doc) {
         // Auto-seed MongoDB with local JSON data on first connect
         const initial = getAgencyData();
@@ -295,7 +295,7 @@ export async function saveAgencyDataAsync(data: AgencyData): Promise<boolean> {
   try {
     const mongooseConn = await connectToDatabase();
     if (mongooseConn) {
-      await AgencyDataModel.findOneAndUpdate({}, data, { upsert: true, new: true });
+      await AgencyDataModel.findOneAndUpdate({}, data, { upsert: true, new: true, sort: { updatedAt: -1 } });
       return true;
     }
   } catch (error) {

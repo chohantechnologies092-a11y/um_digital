@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getAgencyDataAsync, saveAgencyDataAsync } from '@/lib/db';
 import { AgencyData } from '@/types';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   const data = await getAgencyDataAsync();
   return NextResponse.json(data);

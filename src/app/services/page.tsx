@@ -1,10 +1,10 @@
 import React from 'react';
-import { getAgencyData } from '@/lib/db';
+import { getAgencyDataAsync } from '@/lib/db';
 import ServicesClient from './ServicesClient';
 
 export const revalidate = 0;
 
-export default function ServicesPage() {
-  const data = getAgencyData();
+export default async function ServicesPage() {
+  const data = await getAgencyDataAsync();
   return <ServicesClient data={data} />;
 }

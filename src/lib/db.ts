@@ -344,6 +344,26 @@ export function getFeaturedPortfolio() {
   return getPortfolio().filter(p => p.featured);
 }
 
-export function addLead(lead: import('@/types').ContactLead) {
+export async function getServicesAsync() {
+  const data = await getAgencyDataAsync();
+  return data.services;
+}
+
+export async function getActiveServicesAsync() {
+  const services = await getServicesAsync();
+  return services.filter(s => s.active).sort((a, b) => a.order - b.order);
+}
+
+export async function getPortfolioAsync() {
+  const data = await getAgencyDataAsync();
+  return data.portfolio.sort((a, b) => a.order - b.order);
+}
+
+export async function getFeaturedPortfolioAsync() {
+  const portfolio = await getPortfolioAsync();
+  return portfolio.filter(p => p.featured);
+}
+
+export async function addLead(lead: import('@/types').ContactLead) {
   return saveLeadAsync(lead);
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import { getAgencyData } from '@/lib/db';
+import { getAgencyDataAsync } from '@/lib/db';
 import PortfolioClient from './PortfolioClient';
 
 export const revalidate = 0;
 
-export default function PortfolioPage() {
-  const data = getAgencyData();
+export default async function PortfolioPage() {
+  const data = await getAgencyDataAsync();
   return <PortfolioClient data={data} />;
 }

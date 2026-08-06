@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAgencyData } from '@/lib/db';
+import { getAgencyDataAsync } from '@/lib/db';
 import { Navbar } from '@/components/layout/Navbar';
 import { Preloader } from '@/components/ui/Preloader';
 import { HeroSection } from '@/components/sections/HeroSection';
@@ -14,8 +14,8 @@ import { Footer } from '@/components/layout/Footer';
 
 export const revalidate = 0; // Ensures fresh data load on every request
 
-export default function HomePage() {
-  const data = getAgencyData();
+export default async function HomePage() {
+  const data = await getAgencyDataAsync();
 
   return (
     <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans">

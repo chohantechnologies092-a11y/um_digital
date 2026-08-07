@@ -220,11 +220,25 @@ export const initialAgencyData: AgencyData = {
 import { connectToDatabase } from './mongodb';
 import { AgencyDataModel, ContactLeadModel } from './models';
 
+declare global {
+  // eslint-disable-next-line no-var
+  var memoryAgencyData: AgencyData | undefined;
+}
+
 export function getAgencyData(): AgencyData {
   try {
+    let rawContent: string | null = null;
     if (fs.existsSync(DB_PATH)) {
-      const data = fs.readFileSync(DB_PATH, 'utf-8');
-      const parsedData = JSON.parse(data) as AgencyData;
+      rawContent = fs.readFileSync(DB_PATH, 'utf-8');
+    } else {
+      const tmpPath = path.join('/tmp', 'agency_db.json');
+      if (fs.existsSync(tmpPath)) {
+        rawContent = fs.readFileSync(tmpPath, 'utf-8');
+      }
+    }
+
+    if (rawContent) {
+      const parsedData = JSON.parse(rawContent) as AgencyData;
       parsedData.services = parsedData.services || initialAgencyData.services;
       parsedData.portfolio = parsedData.portfolio || initialAgencyData.portfolio;
       parsedData.testimonials = parsedData.testimonials || initialAgencyData.testimonials;
@@ -239,11 +253,17 @@ export function getAgencyData(): AgencyData {
           logoUrl: c.logoUrl || '/assets/um digital logo-01.png'
         }));
       }
+      global.memoryAgencyData = parsedData;
       return parsedData;
     }
   } catch (error) {
     console.error('Error reading local DB:', error);
   }
+
+  if (global.memoryAgencyData) {
+    return global.memoryAgencyData;
+  }
+
   return initialAgencyData;
 }
 
@@ -283,6 +303,7 @@ export async function getAgencyDataAsync(): Promise<AgencyData> {
 }
 
 export function saveAgencyData(data: AgencyData): boolean {
+  global.memoryAgencyData = data;
   try {
     const dir = path.dirname(DB_PATH);
     if (!fs.existsSync(dir)) {
@@ -291,8 +312,16 @@ export function saveAgencyData(data: AgencyData): boolean {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
     return true;
   } catch (error) {
-    console.error('Error saving local DB:', error);
-    return false;
+    console.error('Error saving local DB file:', error);
+    try {
+      const tmpPath = path.join('/tmp', 'agency_db.json');
+      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf-8');
+      return true;
+    } catch (tmpErr) {
+      console.error('Error saving to /tmp fallback:', tmpErr);
+      // In-memory fallback succeeded
+      return true;
+    }
   }
 }
 
@@ -325,7 +354,7 @@ export async function saveAgencyDataAsync(data: AgencyData): Promise<boolean> {
       }
       return true;
     } else {
-      console.warn('saveAgencyDataAsync: MongoDB connection failed or returned null');
+      console.warn('saveAgencyDataAsync: MongoDB connection unavailable, changes saved locally/in-memory.');
       return localSaved;
     }
   } catch (error) {

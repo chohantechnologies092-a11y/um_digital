@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 interface MongooseCache {
   conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
+  promise: Promise<typeof mongoose | null> | null;
 }
 
 declare global {
@@ -18,8 +18,15 @@ const cached: MongooseCache = global.mongooseCache;
 
 export async function connectToDatabase(): Promise<typeof mongoose | null> {
   const mongodbUri = process.env.MONGODB_URI;
-  if (!mongodbUri) {
-    console.warn('connectToDatabase: MONGODB_URI is not defined in environment variables');
+  if (
+    !mongodbUri ||
+    mongodbUri.includes('<db_password>') ||
+    mongodbUri.includes('<password>') ||
+    mongodbUri.includes('<username>') ||
+    mongodbUri.includes('YOUR_') ||
+    mongodbUri.includes('[password]')
+  ) {
+    console.warn('connectToDatabase: MONGODB_URI is not set or contains placeholder credentials.');
     return null;
   }
 
@@ -33,17 +40,24 @@ export async function connectToDatabase(): Promise<typeof mongoose | null> {
       serverSelectionTimeoutMS: 5000,
     };
 
-    cached.promise = mongoose.connect(mongodbUri, opts).then((mongooseInstance) => {
-      return mongooseInstance;
-    });
+    cached.promise = mongoose
+      .connect(mongodbUri, opts)
+      .then((mongooseInstance) => {
+        return mongooseInstance;
+      })
+      .catch((err) => {
+        cached.promise = null;
+        console.warn('Error connecting to MongoDB Atlas:', err.message || err);
+        return null;
+      });
   }
 
   try {
     cached.conn = await cached.promise;
   } catch (e) {
     cached.promise = null;
-    console.error('Error connecting to MongoDB Atlas:', e);
-    throw e;
+    console.warn('Error awaiting MongoDB connection:', e);
+    return null;
   }
 
   return cached.conn;

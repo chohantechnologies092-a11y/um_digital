@@ -23,6 +23,19 @@ QistKhata Recovery Pro v1.0 is an enterprise-grade FinTech SaaS platform enginee
 * **67% Recovery Progress** achieved across active store portfolio contracts.
 * Automated calculation of expected net markup profit (Rs 162,000+).
 * Zero manual accounting errors across 100% of installment agreements.`,
+    fullCaseStudy: `## Project Overview
+QistKhata Recovery Pro v1.0 is an enterprise-grade FinTech SaaS platform engineered specifically for retail installment businesses and recovery management.
+
+### Core Architecture & Features
+1. **Executive Recovery Radar:** Live dashboard tracking total contract volume (Rs 1.3M+), cash recovered (Rs 875k+), and remaining market receivables (Rs 427k).
+2. **Automated Defaulter Alert Engine:** Real-time overdue payment tracking and instant defaulter notifications.
+3. **Ledger & Guarantor Management:** Complete buyer profile, guarantor verification, and flexible monthly installment schedule generation.
+4. **Offline-First & Cloud Sync:** High-availability local data persistence combined with secure cloud database synchronization.
+
+### Key Metrics & Business Performance
+* **67% Recovery Progress** achieved across active store portfolio contracts.
+* Automated calculation of expected net markup profit (Rs 162,000+).
+* Zero manual accounting errors across 100% of installment agreements.`,
     imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "Rs 1.3M+ Ledger Tracked",
     beforeStats: "Recovery Tracking: Manual Register\nOverdue Defaulters: Unmapped\nCalculation Errors: Frequent",
@@ -42,6 +55,23 @@ QistKhata Recovery Pro v1.0 is an enterprise-grade FinTech SaaS platform enginee
     tags: "Next.js, E-Commerce, SEO, Graphic Design, SMM",
     description: "Architected a high-converting Next.js e-commerce platform with custom furniture product configurator, coupled with technical SEO and organic social growth campaigns.",
     content: `## Project Overview
+Furnico Living is a leading UK luxury furniture retailer. Aeronox Solutions was brought on to deliver a complete digital overhaul including custom web engineering, brand identity redesign, organic SEO scaling, and social media marketing.
+
+### Core Challenges
+* Legacy storefront suffered from slow mobile load times (4.8s) causing high bounce rates.
+* Poor visibility on competitive UK luxury furniture search terms.
+* Disconnected visual branding across social media channels.
+
+### Delivered Engineering & Marketing Solutions
+1. **Next.js 16 Storefront:** Engineered a sub-second headless e-commerce store with dynamic 3D room preview and fast filtering.
+2. **Technical & Semantic SEO:** Implemented schema markup, optimized site hierarchy, and targeted high-intent commercial keywords.
+3. **Social Media & Graphic Suite:** Designed modern vector visual identity assets and ran targeted Instagram and Facebook campaigns.
+
+### Key Results
+* **+185% increase** in organic e-commerce revenue within 6 months.
+* **Top 3 search rankings** for "Luxury Living Room Furniture UK".
+* Reduced page load speed from 4.8s to 0.7s.`,
+    fullCaseStudy: `## Project Overview
 Furnico Living is a leading UK luxury furniture retailer. Aeronox Solutions was brought on to deliver a complete digital overhaul including custom web engineering, brand identity redesign, organic SEO scaling, and social media marketing.
 
 ### Core Challenges
@@ -88,6 +118,17 @@ Ickletots is a premium UK children's fashion brand. We built a high-performance 
 ### Business Impact
 * **+220% increase** in mobile social sales.
 * Mobile conversion rate boosted from 0.9% to 3.8%.`,
+    fullCaseStudy: `## Project Overview
+Ickletots is a premium UK children's fashion brand. We built a high-performance shopping web application paired with social media visual branding and marketing.
+
+### Core Deliverables
+* Mobile-first responsive Next.js storefront.
+* Custom graphic assets, logo branding, and social templates.
+* Multi-channel social media acquisition campaign.
+
+### Business Impact
+* **+220% increase** in mobile social sales.
+* Mobile conversion rate boosted from 0.9% to 3.8%.`,
     imageUrl: "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+220% Social Sales",
     beforeStats: "Mobile Conversion: 0.9%\nSocial Engagement: Low\nBrand Recognition: Local",
@@ -108,6 +149,17 @@ Ickletots is a premium UK children's fashion brand. We built a high-performance 
     tags: "Next.js, AI Systems, Technical SEO, Graphic Design, SMM",
     description: "Built an enterprise B2B software portal with automated workflow integrations, accompanied by high-authority B2B technical SEO and social acquisition.",
     content: `## Project Overview
+Connect AI Solutions provides enterprise AI automation to UK businesses. Aeronox engineered their client portal, technical SEO silos, and visual identity.
+
+### Engineering Features
+* Role-based B2B dashboard for client workflow monitoring.
+* Technical SEO optimization for AI & enterprise software keywords.
+* Custom vector graphics and presentation decks for executive sales calls.
+
+### Measurable Results
+* **3.5x increase** in qualified B2B sales pipeline leads.
+* Domain Rating elevated from DR 12 to DR 48.`,
+    fullCaseStudy: `## Project Overview
 Connect AI Solutions provides enterprise AI automation to UK businesses. Aeronox engineered their client portal, technical SEO silos, and visual identity.
 
 ### Engineering Features
@@ -143,6 +195,12 @@ Luxora Haus creates bespoke architectural interiors in the UK. We crafted a high
 ### Highlights
 * Sub-second high-resolution gallery rendering.
 * Social media growth campaign targeting high-net-worth homeowners.`,
+    fullCaseStudy: `## Project Overview
+Luxora Haus creates bespoke architectural interiors in the UK. We crafted a high-definition web portfolio and social marketing channels to showcase luxury projects.
+
+### Highlights
+* Sub-second high-resolution gallery rendering.
+* Social media growth campaign targeting high-net-worth homeowners.`,
     imageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+160% Direct Inquiries",
     beforeStats: "Site Speed: 5.2s\nLead Bounce Rate: 68%\nSocial Followers: 800",
@@ -163,6 +221,12 @@ Luxora Haus creates bespoke architectural interiors in the UK. We crafted a high
     tags: "Real Estate, Next.js, Web Development, UAE",
     description: "High-performance real estate portal with interactive floor plans, localized currency converters, and instant WhatsApp booking integration.",
     content: `## Project Overview
+Phantom Properties is a prominent real estate agency in Dubai, UAE. We engineered a high-speed property listing engine optimized for international investors.
+
+### Key Features
+* Dynamic floor plan viewer and currency switcher (AED, USD, GBP, EUR).
+* Direct CRM and WhatsApp lead routing.`,
+    fullCaseStudy: `## Project Overview
 Phantom Properties is a prominent real estate agency in Dubai, UAE. We engineered a high-speed property listing engine optimized for international investors.
 
 ### Key Features
@@ -193,6 +257,12 @@ Orphan Care UK provides humanitarian relief worldwide. We developed their web do
 ### Results
 * **+310% increase** in online recurring donor conversions.
 * Ranked #1 on Google for key UK charity keywords.`,
+    fullCaseStudy: `## Project Overview
+Orphan Care UK provides humanitarian relief worldwide. We developed their web donation platform, WCAG accessible interface, and search engine visibility.
+
+### Results
+* **+310% increase** in online recurring donor conversions.
+* Ranked #1 on Google for key UK charity keywords.`,
     imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+310% Online Donations",
     beforeStats: "Monthly Online Donations: £4.5k\nSEO Visibility: Page 4\nMobile Usability: Poor",
@@ -213,6 +283,8 @@ Orphan Care UK provides humanitarian relief worldwide. We developed their web do
     tags: "Corporate Web Dev, SEO, Graphic Design, SMM",
     description: "Full digital transformation including enterprise Web portal, technical SEO indexing, social media authority building, and modern brand design.",
     content: `## Project Overview
+Discover IBT offers IT consultation to UK firms. Aeronox engineered a comprehensive corporate web application and multi-channel SEO campaign.`,
+    fullCaseStudy: `## Project Overview
 Discover IBT offers IT consultation to UK firms. Aeronox engineered a comprehensive corporate web application and multi-channel SEO campaign.`,
     imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "2.8x Pipeline Growth",
@@ -235,6 +307,8 @@ Discover IBT offers IT consultation to UK firms. Aeronox engineered a comprehens
     description: "Engineered a sleek commercial property listing platform with online booking tours and tenant management UI.",
     content: `## Project Overview
 Index House manages commercial workspaces across the UK. We developed an online office scheduling and virtual tour platform.`,
+    fullCaseStudy: `## Project Overview
+Index House manages commercial workspaces across the UK. We developed an online office scheduling and virtual tour platform.`,
     imageUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+140% Tour Velocity",
     beforeStats: "Tour Bookings: Manual Phone Only\nSite Performance: 55/100",
@@ -255,6 +329,8 @@ Index House manages commercial workspaces across the UK. We developed an online 
     tags: "B2B E-Commerce, Web Development, Catalog System",
     description: "Scalable B2B e-commerce platform supporting bulk order inquiries, custom invoice generation, and product catalog management.",
     content: `## Project Overview
+Soft Office supplies corporate furniture and stationery in the UK. We engineered a custom B2B web catalog with bulk pricing rules.`,
+    fullCaseStudy: `## Project Overview
 Soft Office supplies corporate furniture and stationery in the UK. We engineered a custom B2B web catalog with bulk pricing rules.`,
     imageUrl: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+190% B2B Orders",
@@ -277,6 +353,8 @@ Soft Office supplies corporate furniture and stationery in the UK. We engineered
     description: "Re-engineered industrial e-commerce shop with technical SEO targeting UK HVAC contractors and commercial builders.",
     content: `## Project Overview
 Ducting Delivered supplies ductwork across the UK. We scaled their organic search keywords and optimized catalog indexing speed.`,
+    fullCaseStudy: `## Project Overview
+Ducting Delivered supplies ductwork across the UK. We scaled their organic search keywords and optimized catalog indexing speed.`,
     imageUrl: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+240% Keyword Lift",
     beforeStats: "Organic Revenue: £8k/mo\nCore Web Vitals: Failed",
@@ -298,6 +376,8 @@ Ducting Delivered supplies ductwork across the UK. We scaled their organic searc
     description: "Designed a localized social media growth and lead acquisition engine targeting high-ticket residential renovation clients in the UK.",
     content: `## Project Overview
 Pinnacle Builder delivers premium house extensions and renovations in the UK. We established their digital social marketing funnel.`,
+    fullCaseStudy: `## Project Overview
+Pinnacle Builder delivers premium house extensions and renovations in the UK. We established their digital social marketing funnel.`,
     imageUrl: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "£450k+ Pipeline",
     beforeStats: "Social Leads: 0\nBrand Impressions: Negligible",
@@ -317,6 +397,12 @@ Pinnacle Builder delivers premium house extensions and renovations in the UK. We
     tags: "Google PPC, Paid Search Ads, Conversion Optimization",
     description: "Engineered a hyper-targeted Google Search PPC campaign for airport transfer keywords, optimizing cost-per-acquisition (CPA).",
     content: `## Project Overview
+Quick Airport Transfers needed to acquire high-intent UK travel bookings via Google Ads while driving down CPA.
+
+### Campaign Results
+* Reduced booking CPA from £24.00 to £7.50.
+* Achieved a verified 5.4x Return on Ad Spend (ROAS).`,
+    fullCaseStudy: `## Project Overview
 Quick Airport Transfers needed to acquire high-intent UK travel bookings via Google Ads while driving down CPA.
 
 ### Campaign Results
@@ -343,6 +429,8 @@ Quick Airport Transfers needed to acquire high-intent UK travel bookings via Goo
     description: "Designed an interactive online furniture showcase with custom room visualizer and seamless mobile checkout integration.",
     content: `## Project Overview
 Home Start Furniture Place is a popular UK home furnishings provider. We rebuilt their e-commerce storefront for 1-tap mobile ordering.`,
+    fullCaseStudy: `## Project Overview
+Home Start Furniture Place is a popular UK home furnishings provider. We rebuilt their e-commerce storefront for 1-tap mobile ordering.`,
     imageUrl: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+175% Checkout Lift",
     beforeStats: "Cart Abandonment: 78%\nMobile UX: Cluttered",
@@ -363,6 +451,8 @@ Home Start Furniture Place is a popular UK home furnishings provider. We rebuilt
     tags: "Fashion E-Commerce, Web Development, Next.js",
     description: "Built an elegant fashion boutique storefront featuring seasonal collections, dynamic inventory sync, and instant filtering.",
     content: `## Project Overview
+Heidis Wardrobe is a UK boutique fashion brand. We built a high-fashion digital storefront with instant collection lookbooks.`,
+    fullCaseStudy: `## Project Overview
 Heidis Wardrobe is a UK boutique fashion brand. We built a high-fashion digital storefront with instant collection lookbooks.`,
     imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "3.1x Mobile Sales",
@@ -389,6 +479,12 @@ URUS Rent A Car provides exotic supercar rentals in Dubai, UAE. Aeronox built th
 ### Results
 * Ranked #1 on Google Dubai for "Urus Car Rental Dubai".
 * Increased organic customer bookings by **+280%**.`,
+    fullCaseStudy: `## Project Overview
+URUS Rent A Car provides exotic supercar rentals in Dubai, UAE. Aeronox built their SEO presence, social reels engine, and graphic identity.
+
+### Results
+* Ranked #1 on Google Dubai for "Urus Car Rental Dubai".
+* Increased organic customer bookings by **+280%**.`,
     imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+280% Organic Bookings",
     beforeStats: "Dubai Organic Rank: Page 3\nInstagram Engagement: 0.8%",
@@ -409,6 +505,8 @@ URUS Rent A Car provides exotic supercar rentals in Dubai, UAE. Aeronox built th
     tags: "Fleet Management Web App, SEO, SMM, Graphic Design, UAE",
     description: "Engineered a complete car booking web app with online reservation system, backed by technical SEO and social acquisition.",
     content: `## Project Overview
+KOR Rent A Car manages a fleet of luxury and economy vehicles in UAE. We developed their web application, brand design, and search campaign.`,
+    fullCaseStudy: `## Project Overview
 KOR Rent A Car manages a fleet of luxury and economy vehicles in UAE. We developed their web application, brand design, and search campaign.`,
     imageUrl: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+340% Online Reservations",
@@ -431,6 +529,8 @@ KOR Rent A Car manages a fleet of luxury and economy vehicles in UAE. We develop
     description: "Architected a custom headless store and designed a localized UK SEO roadmap, leading to a 140% traffic increase.",
     content: `## Project Overview
 Casita Furniture is a premier UK home furnishing brand. We delivered full headless web engineering, SEO, graphic identity, and social media management.`,
+    fullCaseStudy: `## Project Overview
+Casita Furniture is a premier UK home furnishing brand. We delivered full headless web engineering, SEO, graphic identity, and social media management.`,
     imageUrl: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+140% Traffic Increase",
     beforeStats: "Page Load: 3.8s\nOrganic Traffic: 3,500/mo",
@@ -451,6 +551,8 @@ Casita Furniture is a premier UK home furnishing brand. We delivered full headle
     tags: "EdTech, Web Engineering, SMM, Graphic Design",
     description: "Built an interactive EdTech student portal with course enrollment tools, supported by global social acquisition campaigns.",
     content: `## Project Overview
+Online Quran Academy connects international students with expert tutors. Aeronox built their student portal and social marketing pipeline.`,
+    fullCaseStudy: `## Project Overview
 Online Quran Academy connects international students with expert tutors. Aeronox built their student portal and social marketing pipeline.`,
     imageUrl: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+380% Student Registrations",
@@ -473,6 +575,8 @@ Online Quran Academy connects international students with expert tutors. Aeronox
     description: "Custom online cake ordering web application with custom design selector, local SEO optimization, and social content strategy.",
     content: `## Project Overview
 Cake Corner is a popular UK custom bakery. We engineered a step-by-step custom cake ordering web application and localized Google SEO.`,
+    fullCaseStudy: `## Project Overview
+Cake Corner is a popular UK custom bakery. We engineered a step-by-step custom cake ordering web application and localized Google SEO.`,
     imageUrl: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+210% Custom Pre-Orders",
     beforeStats: "Local Google Map Rank: #14\nOnline Pre-Orders: 5/week",
@@ -493,6 +597,8 @@ Cake Corner is a popular UK custom bakery. We engineered a step-by-step custom c
     tags: "B2B Wholesale, Web Engineering, Next.js",
     description: "High-capacity B2B wholesale platform featuring bulk pricing tiers, VAT tax calculations, and trade account verification.",
     content: `## Project Overview
+Kids Wholesale is a UK childrenswear distributor. We developed an automated B2B portal for retail buyers across Europe.`,
+    fullCaseStudy: `## Project Overview
 Kids Wholesale is a UK childrenswear distributor. We developed an automated B2B portal for retail buyers across Europe.`,
     imageUrl: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+195% Trade Accounts",
@@ -515,6 +621,8 @@ Kids Wholesale is a UK childrenswear distributor. We developed an automated B2B 
     description: "Modern designer clothing storefront with high-resolution visual catalog, organic SEO optimization, and social fashion marketing.",
     content: `## Project Overview
 Mansuri Fashion offers luxury ethnic & contemporary apparel in the UK. Aeronox built their web app and scaled organic search revenue.`,
+    fullCaseStudy: `## Project Overview
+Mansuri Fashion offers luxury ethnic & contemporary apparel in the UK. Aeronox built their web app and scaled organic search revenue.`,
     imageUrl: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "+260% E-Commerce Revenue",
     beforeStats: "Organic Search Revenue: £3.2k/mo\nMobile Bounce: 62%",
@@ -535,6 +643,8 @@ Mansuri Fashion offers luxury ethnic & contemporary apparel in the UK. Aeronox b
     tags: "Social Media Marketing, Beverage Branding, Viral Reels",
     description: "Vibrant social media branding, promo campaign, and influencer marketing launch for a fresh juice & smoothie brand in the UK.",
     content: `## Project Overview
+Tropi Juice launched a fresh beverage line in the UK. Aeronox created their social media marketing campaign and brand graphics.`,
+    fullCaseStudy: `## Project Overview
 Tropi Juice launched a fresh beverage line in the UK. Aeronox created their social media marketing campaign and brand graphics.`,
     imageUrl: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&q=80&w=1200",
     growthBadge: "120k+ Social Reach",

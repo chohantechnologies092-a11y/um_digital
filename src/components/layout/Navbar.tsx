@@ -51,8 +51,10 @@ export const Navbar: React.FC<NavbarProps> = ({ settings }) => {
         {/* Desktop Nav Items */}
         <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-xs font-black text-slate-300 uppercase tracking-widest">
           {[
+            { label: 'HOME', href: '/' },
             { label: 'SERVICES', href: '/services' },
             { label: 'PORTFOLIO', href: '/portfolio' },
+            { label: 'GALLERY', href: '/gallery' },
             { label: 'ABOUT', href: '/about' },
             { label: 'CONTACT', href: '/contact' },
           ].map((item) => (
@@ -94,8 +96,10 @@ export const Navbar: React.FC<NavbarProps> = ({ settings }) => {
         <div className="md:hidden mt-3 max-w-6xl mx-auto glass-card-dual rounded-3xl p-6 space-y-4 shadow-2xl animate-in slide-in-from-top-4 duration-300">
           <div className="space-y-2 text-xs font-bold uppercase tracking-widest text-slate-300">
             {[
+              { label: 'HOME', href: '/' },
               { label: 'SERVICES', href: '/services' },
               { label: 'PORTFOLIO', href: '/portfolio' },
+              { label: 'GALLERY', href: '/gallery' },
               { label: 'ABOUT', href: '/about' },
               { label: 'CONTACT', href: '/contact' },
             ].map((item) => (

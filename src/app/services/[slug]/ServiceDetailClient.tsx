@@ -1,15 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { DynamicIcon } from '@/components/ui/DynamicIcon';
-import { Check, ArrowLeft, Zap, ArrowRight, Briefcase } from 'lucide-react';
+import { Check, ArrowLeft, Zap, ArrowRight, Briefcase, Images, X, Maximize2, HelpCircle, Layers, Award, Sparkles, ChevronDown } from 'lucide-react';
 import { ServiceItem, AgencyData } from '@/types';
 
 export default function ServiceDetailClient({ data, service }: { data: AgencyData, service: ServiceItem }) {
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const relatedProjects = data.portfolio.filter(
     (project) => project.serviceCategory === service.id || project.serviceCategory === service.slug
   );
@@ -69,6 +72,65 @@ export default function ServiceDetailClient({ data, service }: { data: AgencyDat
             transition={{ delay: 0.3 }}
             className="space-y-16"
           >
+            {/* Service Images Showcase Gallery */}
+            {service.images && service.images.length > 0 && (
+              <div className="glass-card rounded-3xl p-8 border border-white/10 relative overflow-hidden">
+                <div className="flex items-center gap-3 mb-6">
+                  <Images className="w-6 h-6 text-brand-orange" />
+                  <h2 className="text-2xl font-bold text-white">Service Showcase & Visuals</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {service.images.map((img, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => setActiveImage(img)}
+                      className="relative aspect-video rounded-2xl overflow-hidden glass-card border border-white/10 group cursor-pointer hover:border-brand-orange/50 transition-all bg-black/40"
+                    >
+                      <Image
+                        src={img}
+                        alt={`${service.title} showcase ${idx + 1}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Maximize2 className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Lightbox Modal */}
+            <AnimatePresence>
+              {activeImage && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+                  onClick={() => setActiveImage(null)}
+                >
+                  <button
+                    onClick={() => setActiveImage(null)}
+                    className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                  <div className="relative max-w-5xl max-h-[85vh] w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+                    <Image
+                      src={activeImage}
+                      alt={service.title}
+                      fill
+                      className="object-contain rounded-2xl"
+                      unoptimized
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Overview */}
             <div className="glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange/5 rounded-full blur-[80px]" />
@@ -80,6 +142,11 @@ export default function ServiceDetailClient({ data, service }: { data: AgencyDat
                 <p className="text-gray-300 text-lg leading-relaxed whitespace-pre-wrap">
                   {service.fullDesc}
                 </p>
+                {service.detailedContent && (
+                  <div className="mt-6 pt-6 border-t border-white/10 text-gray-300 leading-relaxed whitespace-pre-wrap">
+                    {service.detailedContent}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -97,6 +164,78 @@ export default function ServiceDetailClient({ data, service }: { data: AgencyDat
                         <Check className="w-4 h-4 text-brand-orange" />
                       </div>
                       <span className="text-gray-200 font-medium">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Process Steps */}
+            {service.processSteps && service.processSteps.length > 0 && (
+              <div className="glass-card rounded-3xl p-8 md:p-12 border border-brand-orange/20 relative overflow-hidden">
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <Layers className="w-6 h-6 text-brand-orange" />
+                  Our Process
+                </h2>
+                <div className="space-y-6">
+                  {service.processSteps.map((step, i) => (
+                    <div key={i} className="flex flex-col sm:flex-row items-start gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-brand-orange to-brand-red flex items-center justify-center font-black text-white shrink-0">
+                        {i + 1}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-white mb-1">{step.title}</h4>
+                        <p className="text-gray-300 text-sm leading-relaxed">{step.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Benefits */}
+            {service.benefits && service.benefits.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <Award className="w-6 h-6 text-amber-400" />
+                  Why Choose This Service
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {service.benefits.map((benefit, i) => (
+                    <div key={i} className="glass-card p-6 rounded-2xl border border-amber-400/20 flex items-center gap-3">
+                      <Sparkles className="w-5 h-5 text-amber-400 shrink-0" />
+                      <span className="text-gray-200 text-sm font-semibold">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* FAQ Accordion */}
+            {service.faq && service.faq.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <HelpCircle className="w-6 h-6 text-brand-cyan" />
+                  Frequently Asked Questions
+                </h2>
+                <div className="space-y-4">
+                  {service.faq.map((item, idx) => (
+                    <div 
+                      key={idx} 
+                      className="glass-card rounded-2xl border border-white/10 overflow-hidden"
+                    >
+                      <button
+                        onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                        className="w-full p-6 text-left flex items-center justify-between gap-4 font-bold text-white hover:text-brand-orange transition-colors"
+                      >
+                        <span>{item.question}</span>
+                        <ChevronDown className={`w-5 h-5 shrink-0 transition-transform ${openFaq === idx ? 'rotate-180 text-brand-orange' : 'text-gray-400'}`} />
+                      </button>
+                      {openFaq === idx && (
+                        <div className="px-6 pb-6 text-gray-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                          {item.answer}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

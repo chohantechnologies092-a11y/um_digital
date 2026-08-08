@@ -933,6 +933,274 @@ export default function AdminDashboardPage() {
                         </button>
                       </div>
                     </div>
+
+                    {/* Detailed Content */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1">Extended Service Content (Optional extra writeup)</label>
+                      <textarea
+                        rows={3}
+                        value={editingService.detailedContent || ''}
+                        onChange={(e) => setEditingService({ ...editingService, detailedContent: e.target.value })}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 text-sm leading-relaxed"
+                        placeholder="Additional in-depth details, methodology, or strategy overview..."
+                      />
+                    </div>
+
+                    {/* Service Multiple Showcase Images */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Service Showcase Images (Multiple Gallery Images)
+                      </label>
+                      <div className="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-3">
+                        <div className="flex flex-wrap gap-3">
+                          {(editingService.images || []).map((imgUrl, idx) => (
+                            <div key={idx} className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 group flex-shrink-0">
+                              <Image src={imgUrl} alt={`Service image ${idx + 1}`} fill className="object-cover" unoptimized />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updatedImgs = (editingService.images || []).filter((_, i) => i !== idx);
+                                  setEditingService({ ...editingService, images: updatedImgs });
+                                }}
+                                className="absolute top-1 right-1 p-1 rounded-full bg-rose-600 text-white opacity-90 hover:opacity-100 transition-opacity"
+                                title="Remove Image"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 border-t border-slate-800">
+                          <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md">
+                            <Upload className="w-4 h-4" />
+                            <span>Upload Service Image</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                try {
+                                  const formData = new FormData();
+                                  formData.append('file', file);
+                                  formData.append('folder', 'um_digital/services');
+                                  const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                                  const json = await res.json();
+                                  if (json.url) {
+                                    setEditingService({
+                                      ...editingService,
+                                      images: [...(editingService.images || []), json.url]
+                                    });
+                                  }
+                                } catch (err) {
+                                  alert('Upload failed.');
+                                }
+                              }}
+                            />
+                          </label>
+
+                          <div className="flex-1 flex gap-2 w-full">
+                            <input
+                              type="text"
+                              id="custom-service-img-url"
+                              placeholder="Or paste image URL..."
+                              className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono focus:outline-none"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const inputEl = document.getElementById('custom-service-img-url') as HTMLInputElement;
+                                if (inputEl && inputEl.value.trim()) {
+                                  setEditingService({
+                                    ...editingService,
+                                    images: [...(editingService.images || []), inputEl.value.trim()]
+                                  });
+                                  inputEl.value = '';
+                                }
+                              }}
+                              className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
+                            >
+                              Add URL
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Process Steps */}
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-xs font-semibold text-slate-300">Work Process Steps</label>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const steps = editingService.processSteps || [];
+                            setEditingService({
+                              ...editingService,
+                              processSteps: [...steps, { title: 'Step Title', desc: 'Description of step' }]
+                            });
+                          }}
+                          className="px-3 py-1 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-xs font-bold flex items-center gap-1"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add Step</span>
+                        </button>
+                      </div>
+
+                      <div className="space-y-3">
+                        {(editingService.processSteps || []).map((step, sIdx) => (
+                          <div key={sIdx} className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2 relative">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-amber-400">Step #{sIdx + 1}</span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = (editingService.processSteps || []).filter((_, i) => i !== sIdx);
+                                  setEditingService({ ...editingService, processSteps: updated });
+                                }}
+                                className="text-rose-400 hover:text-rose-300 text-xs"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            <input
+                              type="text"
+                              value={step.title}
+                              onChange={(e) => {
+                                const updated = [...(editingService.processSteps || [])];
+                                updated[sIdx].title = e.target.value;
+                                setEditingService({ ...editingService, processSteps: updated });
+                              }}
+                              placeholder="Step Title (e.g. Discovery & Audit)"
+                              className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs font-semibold"
+                            />
+                            <textarea
+                              rows={2}
+                              value={step.desc}
+                              onChange={(e) => {
+                                const updated = [...(editingService.processSteps || [])];
+                                updated[sIdx].desc = e.target.value;
+                                setEditingService({ ...editingService, processSteps: updated });
+                              }}
+                              placeholder="Step Description..."
+                              className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Benefits List */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Benefits & Outcomes</label>
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {(editingService.benefits || []).map((ben, bIdx) => (
+                          <div key={bIdx} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-amber-950 border border-amber-700 text-amber-200 text-xs font-semibold">
+                            <span>{ben}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const updated = (editingService.benefits || []).filter((_, i) => i !== bIdx);
+                                setEditingService({ ...editingService, benefits: updated });
+                              }}
+                              className="text-amber-400 hover:text-rose-400"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          id="new-benefit-input"
+                          placeholder="Type benefit (e.g. 24/7 Dedicated Support) and click Add..."
+                          className="flex-1 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const inputEl = document.getElementById('new-benefit-input') as HTMLInputElement;
+                            if (inputEl && inputEl.value.trim()) {
+                              setEditingService({
+                                ...editingService,
+                                benefits: [...(editingService.benefits || []), inputEl.value.trim()]
+                              });
+                              inputEl.value = '';
+                            }
+                          }}
+                          className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold"
+                        >
+                          Add Benefit
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* FAQs */}
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-xs font-semibold text-slate-300">Service FAQs</label>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const faqs = editingService.faq || [];
+                            setEditingService({
+                              ...editingService,
+                              faq: [...faqs, { question: 'Question?', answer: 'Answer details...' }]
+                            });
+                          }}
+                          className="px-3 py-1 rounded-lg bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 text-xs font-bold flex items-center gap-1"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add FAQ</span>
+                        </button>
+                      </div>
+
+                      <div className="space-y-3">
+                        {(editingService.faq || []).map((faqItem, fIdx) => (
+                          <div key={fIdx} className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs font-bold text-cyan-400">FAQ #{fIdx + 1}</span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updated = (editingService.faq || []).filter((_, i) => i !== fIdx);
+                                  setEditingService({ ...editingService, faq: updated });
+                                }}
+                                className="text-rose-400 text-xs"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            <input
+                              type="text"
+                              value={faqItem.question}
+                              onChange={(e) => {
+                                const updated = [...(editingService.faq || [])];
+                                updated[fIdx].question = e.target.value;
+                                setEditingService({ ...editingService, faq: updated });
+                              }}
+                              placeholder="Question?"
+                              className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs font-semibold"
+                            />
+                            <textarea
+                              rows={2}
+                              value={faqItem.answer}
+                              onChange={(e) => {
+                                const updated = [...(editingService.faq || [])];
+                                updated[fIdx].answer = e.target.value;
+                                setEditingService({ ...editingService, faq: updated });
+                              }}
+                              placeholder="Answer..."
+                              className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
 
                   {/* Footer Actions */}
@@ -1166,6 +1434,89 @@ export default function AdminDashboardPage() {
                       </div>
                     </div>
 
+                    {/* Additional Project Gallery Images */}
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Additional Project Gallery Images (Multiple Screenshots/Mockups)
+                      </label>
+                      <div className="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-3">
+                        <div className="flex flex-wrap gap-3">
+                          {(editingPortfolio.images || []).map((imgUrl, idx) => (
+                            <div key={idx} className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 group flex-shrink-0">
+                              <Image src={imgUrl} alt={`Project gallery ${idx + 1}`} fill className="object-cover" unoptimized />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const updatedImgs = (editingPortfolio.images || []).filter((_, i) => i !== idx);
+                                  setEditingPortfolio({ ...editingPortfolio, images: updatedImgs });
+                                }}
+                                className="absolute top-1 right-1 p-1 rounded-full bg-rose-600 text-white opacity-90 hover:opacity-100 transition-opacity"
+                                title="Remove Image"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 border-t border-slate-800">
+                          <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-colors shadow-md">
+                            <Upload className="w-4 h-4" />
+                            <span>Upload Additional Image</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                try {
+                                  const formData = new FormData();
+                                  formData.append('file', file);
+                                  formData.append('folder', 'um_digital/portfolio');
+                                  const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                                  const json = await res.json();
+                                  if (json.url) {
+                                    setEditingPortfolio({
+                                      ...editingPortfolio,
+                                      images: [...(editingPortfolio.images || []), json.url]
+                                    });
+                                  }
+                                } catch (err) {
+                                  alert('Upload failed.');
+                                }
+                              }}
+                            />
+                          </label>
+
+                          <div className="flex-1 flex gap-2 w-full">
+                            <input
+                              type="text"
+                              id="custom-proj-img-url"
+                              placeholder="Or paste image URL..."
+                              className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-cyan-300 text-xs font-mono focus:outline-none"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const inputEl = document.getElementById('custom-proj-img-url') as HTMLInputElement;
+                                if (inputEl && inputEl.value.trim()) {
+                                  setEditingPortfolio({
+                                    ...editingPortfolio,
+                                    images: [...(editingPortfolio.images || []), inputEl.value.trim()]
+                                  });
+                                  inputEl.value = '';
+                                }
+                              }}
+                              className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold"
+                            >
+                              Add URL
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-300 mb-1">Video Embed URL (Optional)</label>
@@ -1197,7 +1548,111 @@ export default function AdminDashboardPage() {
                         value={editingPortfolio.description}
                         onChange={(e) => setEditingPortfolio({ ...editingPortfolio, description: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm"
+                        placeholder="Brief summary shown on project cards..."
                       />
+                    </div>
+
+                    {/* FULL CASE STUDY FIELD */}
+                    <div className="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/30 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <label className="block text-xs font-bold text-amber-400 uppercase tracking-wider">
+                          Full Case Study (Detailed Deep Dive & Markdown Content)
+                        </label>
+                        <span className="text-[10px] text-slate-400">Supports Markdown formatting</span>
+                      </div>
+                      <textarea
+                        rows={8}
+                        value={editingPortfolio.fullCaseStudy || editingPortfolio.content || ''}
+                        onChange={(e) => setEditingPortfolio({ 
+                          ...editingPortfolio, 
+                          fullCaseStudy: e.target.value,
+                          content: e.target.value 
+                        })}
+                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm font-mono leading-relaxed focus:border-amber-400 focus:outline-none"
+                        placeholder="## Project Overview&#10;Write comprehensive case study details here, including project scope, architecture, key metrics, and deliverables..."
+                      />
+                    </div>
+
+                    {/* Challenge & Solution */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">The Challenge</label>
+                        <textarea
+                          rows={3}
+                          value={editingPortfolio.challenge || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, challenge: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                          placeholder="What problem did the client face?"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Our Solution</label>
+                        <textarea
+                          rows={3}
+                          value={editingPortfolio.solution || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, solution: e.target.value })}
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                          placeholder="How did UM Digital solve it?"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Growth Badge & Stats */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Growth Badge (Highlight)</label>
+                        <input
+                          type="text"
+                          value={editingPortfolio.growthBadge || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, growthBadge: e.target.value })}
+                          placeholder="e.g. +185% Revenue"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Before Stats</label>
+                        <textarea
+                          rows={2}
+                          value={editingPortfolio.beforeStats || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, beforeStats: e.target.value })}
+                          placeholder="Metrics before project"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">After Stats</label>
+                        <textarea
+                          rows={2}
+                          value={editingPortfolio.afterStats || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, afterStats: e.target.value })}
+                          placeholder="Metrics after project"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Tags & Location */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Technologies & Tags (Comma Separated)</label>
+                        <input
+                          type="text"
+                          value={editingPortfolio.tags || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, tags: e.target.value })}
+                          placeholder="Next.js, E-Commerce, SEO, UI/UX"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-300 mb-1">Client Location</label>
+                        <input
+                          type="text"
+                          value={editingPortfolio.clientLocation || ''}
+                          onChange={(e) => setEditingPortfolio({ ...editingPortfolio, clientLocation: e.target.value })}
+                          placeholder="Pakistan / UK / USA"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs"
+                        />
+                      </div>
                     </div>
                   </div>
 

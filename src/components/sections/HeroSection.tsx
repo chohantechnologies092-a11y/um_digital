@@ -15,7 +15,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero, settings }) => {
   const [activeTab, setActiveTab] = useState<'tech' | 'motion' | 'visual'>('tech');
 
   return (
-    <section className="min-h-screen lg:h-screen lg:max-h-[920px] flex flex-col justify-between pt-24 pb-4 px-4 sm:px-6 relative overflow-hidden bg-[#030712] bg-devlyx-grid">
+    <section className="min-h-screen lg:min-h-[850px] flex flex-col justify-between pt-28 sm:pt-32 pb-6 px-4 sm:px-6 relative overflow-hidden bg-[#030712] bg-devlyx-grid">
       {/* Fiery Orange & Electric Cyan Dual Spotlights */}
       <div className="blob-orange -top-20 -left-20" />
       <div className="blob-cyan top-1/2 right-0" />

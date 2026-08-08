@@ -168,7 +168,7 @@
       "tags": "Custom Software, FinTech SaaS, Installment Ledger, Recovery Engine, Next.js",
       "description": "Built a comprehensive enterprise FinTech SaaS management system for installment businesses, featuring real-time ledger accounting, guarantor tracking, automated recovery radars, and defaulter alert systems.",
       "content": "## Project Overview\nQistKhata Recovery Pro v1.0 is an enterprise-grade FinTech SaaS platform engineered specifically for retail installment businesses and recovery management.\n\n### Core Architecture & Features\n1. **Executive Recovery Radar:** Live dashboard tracking total contract volume (Rs 1.3M+), cash recovered (Rs 875k+), and remaining market receivables (Rs 427k).\n2. **Automated Defaulter Alert Engine:** Real-time overdue payment tracking and instant defaulter notifications.\n3. **Ledger & Guarantor Management:** Complete buyer profile, guarantor verification, and flexible monthly installment schedule generation.\n4. **Offline-First & Cloud Sync:** High-availability local data persistence combined with secure cloud database synchronization.\n\n### Key Metrics & Business Performance\n* **67% Recovery Progress** achieved across active store portfolio contracts.\n* Automated calculation of expected net markup profit (Rs 162,000+).\n* Zero manual accounting errors across 100% of installment agreements.",
-      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786170490/um_digital/portfolio/dx9jgil3wmnz6bogviad.png",
       "growthBadge": "Rs 1.3M+ Ledger Tracked",
       "beforeStats": "Recovery Tracking: Manual Register\nOverdue Defaulters: Unmapped\nCalculation Errors: Frequent",
       "afterStats": "Recovery Progress: 67% Automated\nDefaulter Radar: Real-time Alert\nCalculation Accuracy: 100%",
@@ -209,7 +209,7 @@
       "tags": "Web Engineering, UI/UX, Graphic Design, SMM",
       "description": "Designed a vibrant, mobile-first Web application with interactive product customizers and a visual brand identity package.",
       "content": "## Project Overview\nIckletots is a premium UK children's fashion brand. We built a high-performance shopping web application paired with social media visual branding and marketing.\n\n### Core Deliverables\n* Mobile-first responsive Next.js storefront.\n* Custom graphic assets, logo branding, and social templates.\n* Multi-channel social media acquisition campaign.\n\n### Business Impact\n* **+220% increase** in mobile social sales.\n* Mobile conversion rate boosted from 0.9% to 3.8%.",
-      "imageUrl": "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1785329440%2Faeronox_uploads%2Fywiw5eag2rccva6bqv6w.png&w=1920&q=75",
       "growthBadge": "+220% Social Sales",
       "beforeStats": "Mobile Conversion: 0.9%\nSocial Engagement: Low\nBrand Recognition: Local",
       "afterStats": "Mobile Conversion: 3.8%\nSocial Reach: 150k+/mo\nBrand Recognition: UK-wide",
@@ -230,7 +230,7 @@
       "tags": "Next.js, AI Systems, Technical SEO, Graphic Design, SMM",
       "description": "Built an enterprise B2B software portal with automated workflow integrations, accompanied by high-authority B2B technical SEO and social acquisition.",
       "content": "## Project Overview\nConnect AI Solutions provides enterprise AI automation to UK businesses. Aeronox engineered their client portal, technical SEO silos, and visual identity.\n\n### Engineering Features\n* Role-based B2B dashboard for client workflow monitoring.\n* Technical SEO optimization for AI & enterprise software keywords.\n* Custom vector graphics and presentation decks for executive sales calls.\n\n### Measurable Results\n* **3.5x increase** in qualified B2B sales pipeline leads.\n* Domain Rating elevated from DR 12 to DR 48.",
-      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088045/um_digital/portfolio/wujgkmztdebad9ahrpok.png",
       "growthBadge": "3.5x B2B Pipeline",
       "beforeStats": "Lead Velocity: 5 leads/mo\nDomain Rating: DR 12\nSite Performance: 62/100",
       "afterStats": "Lead Velocity: 45+ leads/mo\nDomain Rating: DR 48\nSite Performance: 99/100",
@@ -251,7 +251,7 @@
       "tags": "Web Engineering, Interior Styling, SMM, Graphic Design",
       "description": "Developed a minimalist, ultra-fast web portfolio showcasing luxury home architecture and interior styling, paired with targeted social campaigns.",
       "content": "## Project Overview\nLuxora Haus creates bespoke architectural interiors in the UK. We crafted a high-definition web portfolio and social marketing channels to showcase luxury projects.\n\n### Highlights\n* Sub-second high-resolution gallery rendering.\n* Social media growth campaign targeting high-net-worth homeowners.",
-      "imageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088087/um_digital/portfolio/ry82g8zpl18qunvlnraa.png",
       "growthBadge": "+160% Direct Inquiries",
       "beforeStats": "Site Speed: 5.2s\nLead Bounce Rate: 68%\nSocial Followers: 800",
       "afterStats": "Site Speed: 0.8s\nLead Bounce Rate: 24%\nSocial Followers: 24,500+",
@@ -272,7 +272,7 @@
       "tags": "Real Estate, Next.js, Web Development, UAE",
       "description": "High-performance real estate portal with interactive floor plans, localized currency converters, and instant WhatsApp booking integration.",
       "content": "## Project Overview\nPhantom Properties is a prominent real estate agency in Dubai, UAE. We engineered a high-speed property listing engine optimized for international investors.\n\n### Key Features\n* Dynamic floor plan viewer and currency switcher (AED, USD, GBP, EUR).\n* Direct CRM and WhatsApp lead routing.",
-      "imageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088273/um_digital/portfolio/qnoq8ivjjvgrjnvy8bg6.jpg",
       "growthBadge": "4.2x Property Views",
       "beforeStats": "Property Inquiries: 12/mo\nLoad Time: 4.5s\nMobile Score: 45/100",
       "afterStats": "Property Inquiries: 110+/mo\nLoad Time: 0.6s\nMobile Score: 98/100",
@@ -293,7 +293,7 @@
       "tags": "Non-Profit, Next.js, SEO, Graphic Design, SMM",
       "description": "Built an accessible, secure online donation portal with recurring subscription options, backed by SEO and organic charity outreach campaigns.",
       "content": "## Project Overview\nOrphan Care UK provides humanitarian relief worldwide. We developed their web donation platform, WCAG accessible interface, and search engine visibility.\n\n### Results\n* **+310% increase** in online recurring donor conversions.\n* Ranked #1 on Google for key UK charity keywords.",
-      "imageUrl": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088287/um_digital/portfolio/wa2qvlb0zxdy5yajctbt.png",
       "growthBadge": "+310% Online Donations",
       "beforeStats": "Monthly Online Donations: £4.5k\nSEO Visibility: Page 4\nMobile Usability: Poor",
       "afterStats": "Monthly Online Donations: £38k+\nSEO Visibility: Page 1 #1\nMobile Usability: 100% WCAG",
@@ -314,7 +314,7 @@
       "tags": "Corporate Web Dev, SEO, Graphic Design, SMM",
       "description": "Full digital transformation including enterprise Web portal, technical SEO indexing, social media authority building, and modern brand design.",
       "content": "## Project Overview\nDiscover IBT offers IT consultation to UK firms. Aeronox engineered a comprehensive corporate web application and multi-channel SEO campaign.",
-      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088301/um_digital/portfolio/tcu2ntu5wtuuvgexzzwg.png",
       "growthBadge": "2.8x Pipeline Growth",
       "beforeStats": "Organic Inquiries: 3/mo\nSearch Impressions: 5k/mo",
       "afterStats": "Organic Inquiries: 32/mo\nSearch Impressions: 120k/mo",
@@ -335,7 +335,7 @@
       "tags": "Web Engineering, Commercial Real Estate, Next.js",
       "description": "Engineered a sleek commercial property listing platform with online booking tours and tenant management UI.",
       "content": "## Project Overview\nIndex House manages commercial workspaces across the UK. We developed an online office scheduling and virtual tour platform.",
-      "imageUrl": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786099683/um_digital/portfolio/cw47cnjvuorwpeqttovw.png",
       "growthBadge": "+140% Tour Velocity",
       "beforeStats": "Tour Bookings: Manual Phone Only\nSite Performance: 55/100",
       "afterStats": "Tour Bookings: 85% Automated Online\nSite Performance: 96/100",
@@ -356,7 +356,7 @@
       "tags": "B2B E-Commerce, Web Development, Catalog System",
       "description": "Scalable B2B e-commerce platform supporting bulk order inquiries, custom invoice generation, and product catalog management.",
       "content": "## Project Overview\nSoft Office supplies corporate furniture and stationery in the UK. We engineered a custom B2B web catalog with bulk pricing rules.",
-      "imageUrl": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786171102/um_digital/portfolio/obsk0t0fjieifeuy3ty9.jpg",
       "growthBadge": "+190% B2B Orders",
       "beforeStats": "Bulk Order Inquiries: 8/mo\nCatalog Indexing: Slow",
       "afterStats": "Bulk Order Inquiries: 48/mo\nCatalog Indexing: Real-time",
@@ -377,7 +377,7 @@
       "tags": "Industrial SEO, Technical Web Dev, E-Commerce",
       "description": "Re-engineered industrial e-commerce shop with technical SEO targeting UK HVAC contractors and commercial builders.",
       "content": "## Project Overview\nDucting Delivered supplies ductwork across the UK. We scaled their organic search keywords and optimized catalog indexing speed.",
-      "imageUrl": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786088333/um_digital/portfolio/mzs50dbcqz36ltgw5lwa.png",
       "growthBadge": "+240% Keyword Lift",
       "beforeStats": "Organic Revenue: £8k/mo\nCore Web Vitals: Failed",
       "afterStats": "Organic Revenue: £42k/mo\nCore Web Vitals: Passed 100%",
@@ -398,7 +398,7 @@
       "tags": "Social Media Marketing, Construction Lead Gen, SMM",
       "description": "Designed a localized social media growth and lead acquisition engine targeting high-ticket residential renovation clients in the UK.",
       "content": "## Project Overview\nPinnacle Builder delivers premium house extensions and renovations in the UK. We established their digital social marketing funnel.",
-      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786170531/um_digital/portfolio/wttiilgsw5yynu0szckh.png",
       "growthBadge": "£450k+ Pipeline",
       "beforeStats": "Social Leads: 0\nBrand Impressions: Negligible",
       "afterStats": "Social Leads: 22 qualified/mo\nBrand Impressions: 85,000+/mo",
@@ -418,7 +418,7 @@
       "tags": "Google PPC, Paid Search Ads, Conversion Optimization",
       "description": "Engineered a hyper-targeted Google Search PPC campaign for airport transfer keywords, optimizing cost-per-acquisition (CPA).",
       "content": "## Project Overview\nQuick Airport Transfers needed to acquire high-intent UK travel bookings via Google Ads while driving down CPA.\n\n### Campaign Results\n* Reduced booking CPA from £24.00 to £7.50.\n* Achieved a verified 5.4x Return on Ad Spend (ROAS).",
-      "imageUrl": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089592/um_digital/portfolio/hxq1acdf2eqcorv8fq7a.png",
       "growthBadge": "5.4x ROAS",
       "beforeStats": "Cost Per Booking: £24.00\nConversion Rate: 2.1%",
       "afterStats": "Cost Per Booking: £7.50\nConversion Rate: 8.4%",
@@ -439,7 +439,7 @@
       "tags": "Web Engineering, E-Commerce, UX Design",
       "description": "Designed an interactive online furniture showcase with custom room visualizer and seamless mobile checkout integration.",
       "content": "## Project Overview\nHome Start Furniture Place is a popular UK home furnishings provider. We rebuilt their e-commerce storefront for 1-tap mobile ordering.",
-      "imageUrl": "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786170548/um_digital/portfolio/qhkizljbs9rkxmw9zsrg.png",
       "growthBadge": "+175% Checkout Lift",
       "beforeStats": "Cart Abandonment: 78%\nMobile UX: Cluttered",
       "afterStats": "Cart Abandonment: 34%\nMobile UX: Frictionless 1-Tap",
@@ -460,7 +460,7 @@
       "tags": "Fashion E-Commerce, Web Development, Next.js",
       "description": "Built an elegant fashion boutique storefront featuring seasonal collections, dynamic inventory sync, and instant filtering.",
       "content": "## Project Overview\nHeidis Wardrobe is a UK boutique fashion brand. We built a high-fashion digital storefront with instant collection lookbooks.",
-      "imageUrl": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786105482/um_digital/portfolio/k31al6tnkhs5d7be7uva.png",
       "growthBadge": "3.1x Mobile Sales",
       "beforeStats": "Mobile Page Load: 4.1s\nRepeat Customers: 12%",
       "afterStats": "Mobile Page Load: 0.7s\nRepeat Customers: 41%",
@@ -481,7 +481,7 @@
       "tags": "Luxury Automotive, SEO, Social Media, Graphic Design, UAE",
       "description": "Executed high-impact luxury brand design, supercar social video campaigns, and organic SEO targeting Dubai tourists & VIP clientele.",
       "content": "## Project Overview\nURUS Rent A Car provides exotic supercar rentals in Dubai, UAE. Aeronox built their SEO presence, social reels engine, and graphic identity.\n\n### Results\n* Ranked #1 on Google Dubai for \"Urus Car Rental Dubai\".\n* Increased organic customer bookings by **+280%**.",
-      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786170860/um_digital/portfolio/mhgackien8ux5ftu9s27.jpg",
       "growthBadge": "+280% Organic Bookings",
       "beforeStats": "Dubai Organic Rank: Page 3\nInstagram Engagement: 0.8%",
       "afterStats": "Dubai Organic Rank: Top 3 (#1 for Urus Rental)\nInstagram Engagement: 6.4%",
@@ -502,7 +502,7 @@
       "tags": "Fleet Management Web App, SEO, SMM, Graphic Design, UAE",
       "description": "Engineered a complete car booking web app with online reservation system, backed by technical SEO and social acquisition.",
       "content": "## Project Overview\nKOR Rent A Car manages a fleet of luxury and economy vehicles in UAE. We developed their web application, brand design, and search campaign.",
-      "imageUrl": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089769/um_digital/portfolio/ao5oh0bwt003hogdd4qs.png",
       "growthBadge": "+340% Online Reservations",
       "beforeStats": "Online Reservations: 15/mo\nGoogle Ranking: Unindexed",
       "afterStats": "Online Reservations: 140+/mo\nGoogle Ranking: Top 3 Dubai",
@@ -523,7 +523,7 @@
       "tags": "Next.js, Headless E-Commerce, SEO, Graphic Design, SMM",
       "description": "Architected a custom headless store and designed a localized UK SEO roadmap, leading to a 140% traffic increase.",
       "content": "## Project Overview\nCasita Furniture is a premier UK home furnishing brand. We delivered full headless web engineering, SEO, graphic identity, and social media management.",
-      "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089781/um_digital/portfolio/ajy5optervpvihtchhya.png",
       "growthBadge": "+140% Traffic Increase",
       "beforeStats": "Page Load: 3.8s\nOrganic Traffic: 3,500/mo",
       "afterStats": "Page Load: 0.6s\nOrganic Traffic: 18,200/mo",
@@ -544,7 +544,7 @@
       "tags": "EdTech, Web Engineering, SMM, Graphic Design",
       "description": "Built an interactive EdTech student portal with course enrollment tools, supported by global social acquisition campaigns.",
       "content": "## Project Overview\nOnline Quran Academy connects international students with expert tutors. Aeronox built their student portal and social marketing pipeline.",
-      "imageUrl": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089795/um_digital/portfolio/opuictrjnekaul78kn64.png",
       "growthBadge": "+380% Student Registrations",
       "beforeStats": "Monthly Student Enrollment: 25\nGlobal Reach: Limited",
       "afterStats": "Monthly Student Enrollment: 210+\nGlobal Reach: 18 Countries",
@@ -565,7 +565,7 @@
       "tags": "Bakery Web App, Local SEO, Social Media Marketing",
       "description": "Custom online cake ordering web application with custom design selector, local SEO optimization, and social content strategy.",
       "content": "## Project Overview\nCake Corner is a popular UK custom bakery. We engineered a step-by-step custom cake ordering web application and localized Google SEO.",
-      "imageUrl": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089807/um_digital/portfolio/kujuxais39j4aqilpbr1.jpg",
       "growthBadge": "+210% Custom Pre-Orders",
       "beforeStats": "Local Google Map Rank: #14\nOnline Pre-Orders: 5/week",
       "afterStats": "Local Google Map Rank: #1\nOnline Pre-Orders: 42/week",
@@ -586,7 +586,7 @@
       "tags": "B2B Wholesale, Web Engineering, Next.js",
       "description": "High-capacity B2B wholesale platform featuring bulk pricing tiers, VAT tax calculations, and trade account verification.",
       "content": "## Project Overview\nKids Wholesale is a UK childrenswear distributor. We developed an automated B2B portal for retail buyers across Europe.",
-      "imageUrl": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089816/um_digital/portfolio/za2iraoqge1fb8cz9su9.jpg",
       "growthBadge": "+195% Trade Accounts",
       "beforeStats": "Trade Registration: Manual PDF\nCatalog Load: 6s",
       "afterStats": "Trade Registration: Instant Digital Approval\nCatalog Load: 0.5s",
@@ -607,7 +607,7 @@
       "tags": "Fashion E-Commerce, SEO, Web Development, SMM",
       "description": "Modern designer clothing storefront with high-resolution visual catalog, organic SEO optimization, and social fashion marketing.",
       "content": "## Project Overview\nMansuri Fashion offers luxury ethnic & contemporary apparel in the UK. Aeronox built their web app and scaled organic search revenue.",
-      "imageUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786089911/um_digital/portfolio/ohgrjfm0ndw2i0ny7leq.jpg",
       "growthBadge": "+260% E-Commerce Revenue",
       "beforeStats": "Organic Search Revenue: £3.2k/mo\nMobile Bounce: 62%",
       "afterStats": "Organic Search Revenue: £24.8k/mo\nMobile Bounce: 19%",
@@ -628,7 +628,7 @@
       "tags": "Social Media Marketing, Beverage Branding, Viral Reels",
       "description": "Vibrant social media branding, promo campaign, and influencer marketing launch for a fresh juice & smoothie brand in the UK.",
       "content": "## Project Overview\nTropi Juice launched a fresh beverage line in the UK. Aeronox created their social media marketing campaign and brand graphics.",
-      "imageUrl": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&q=80&w=1200",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786102110/um_digital/portfolio/vt6qqcwo9syk3lur4g0p.png",
       "growthBadge": "120k+ Social Reach",
       "beforeStats": "Brand Engagement: 0\nRetail Footfall Impact: Unmapped",
       "afterStats": "Brand Engagement: 8.2%\nRetail Footfall Impact: +35% Store Traffic",
@@ -636,6 +636,175 @@
       "solution": "Designed high-energy visual graphics, ran viral short-form video reels, and managed local social community outreach.",
       "featured": false,
       "order": 23
+    },
+    {
+      "id": "proj-1786090164387",
+      "title": "Accomodation Corner",
+      "slug": "Accomodation Corner",
+      "category": "Web / Software Development",
+      "description": "A modern, high-performing web application designed to handle accommodations and booking efficiently.",
+      "clientName": "Accomodation Corner",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786090383/um_digital/portfolio/nabrb4jbi0itbtzxy7nt.png",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 24
+    },
+    {
+      "id": "proj-1786097226234",
+      "title": "Bluecloud Tech",
+      "slug": "bluecloud-tech",
+      "category": "Digital Marketing & SEO",
+      "description": "A dynamic social media marketing campaign to build brand awareness and community engagement.",
+      "clientName": "Bluecloud Tech",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786097395/um_digital/portfolio/fjnbtcsb0vhcq18ctudu.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 25
+    },
+    {
+      "id": "proj-1786097443465",
+      "title": "Budget Bargainz",
+      "slug": "budget-bargainz",
+      "category": "Web / Software Development",
+      "description": "Description of project accomAn e-commerce platform offering a wide variety of discounted products, reducing cart abandonment by 45%.plishments",
+      "clientName": "Budget Bargainz",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786097545/um_digital/portfolio/zdx5uvjsug436uqmedm1.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 26
+    },
+    {
+      "id": "proj-1786097662121",
+      "title": "Ducting Supplies",
+      "slug": "ducting-supplies",
+      "category": "Digital Marketing & SEO",
+      "description": "Strategic SEO optimization to increase visibility for specialized ducting equipment.",
+      "clientName": "Ducting Supplies",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786097733/um_digital/portfolio/ecrmmhzosvvurbzduile.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 27
+    },
+    {
+      "id": "proj-1786097947953",
+      "title": "Eco Green Thermal Solutions",
+      "slug": "eco-green-thermal-olutions",
+      "category": "Web / Software Development",
+      "description": "A professional corporate website highlighting eco-friendly thermal products and services.",
+      "clientName": "Eco Green Thermal Solutions",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786097996/um_digital/portfolio/zjqt4ts4cpqht9qtqvg1.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 28
+    },
+    {
+      "id": "proj-1786098013785",
+      "title": "Emirates Visa Express",
+      "slug": "emirates-visa-express",
+      "category": "Web / Software Development",
+      "description": "A streamlined portal for processing visa applications quickly and securely.",
+      "clientName": "Emirates Visa Express",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786098174/um_digital/portfolio/rywkih3oois8vyjqjsyt.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 29
+    },
+    {
+      "id": "proj-1786098197161",
+      "title": "Excellency Beds",
+      "slug": "excellency-beds",
+      "category": "Web / Software Development",
+      "description": "A luxurious e-commerce showcase for premium quality beds and mattresses.",
+      "clientName": "Excellency Beds",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786098295/um_digital/portfolio/afk0x4jxeoh2dqmj1qmc.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 30
+    },
+    {
+      "id": "proj-1786098336193",
+      "title": "Hadaf Al Muteena Tourism",
+      "slug": "hadaf-al-muteena-tourism",
+      "category": "Web / Software Development",
+      "description": "A comprehensive travel agency platform with online visa processing and travel packages.",
+      "clientName": "Hadaf Al Muteena Tourism",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786098407/um_digital/portfolio/scskbuqrcjyrk72gn6wk.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 31
+    },
+    {
+      "id": "proj-1786098477561",
+      "title": "Ickletots — Baby & Kids Apparel E-Commerce Experience",
+      "slug": "Ickle-tots",
+      "category": "Digital Marketing & SEO",
+      "description": "Designed a vibrant, mobile-first Web application with interactive product customizers and a visual brand identity package.",
+      "clientName": "Ickletots",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786098575/um_digital/portfolio/xfvmfjji8d0o6n9u85rs.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 32
+    },
+    {
+      "id": "proj-1786098607217",
+      "title": "LOGO DESIGNING",
+      "slug": "logo-designing",
+      "category": "Graphics Designing",
+      "description": "Brand logo and visual identity asset showcase.",
+      "clientName": "Client Brand",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786098770/um_digital/portfolio/unf4hawrevyevi9bjpop.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 33
+    },
+    {
+      "id": "proj-1786098806641",
+      "title": "Perfumish",
+      "slug": "perfumish",
+      "category": "Digital Marketing & SEO",
+      "description": "A luxurious e-commerce storefront for premium fragrance collections.",
+      "clientName": "Perfumish",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786099701/um_digital/portfolio/ggz6ssxljjleaf3cks9y.png",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 34
+    },
+    {
+      "id": "proj-1786099103145",
+      "title": "POSTER DESIGN",
+      "slug": "poster-design",
+      "category": "Graphics Designing",
+      "description": "Brand logo and visual identity asset showcase.",
+      "clientName": "POSTER DESIGN",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786099161/um_digital/portfolio/adsyriqrtwvoa9p9kots.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 35
+    },
+    {
+      "id": "proj-1786099177953",
+      "title": "SOCIAL MEDIA POST DESIGN",
+      "slug": "social-media-post-design",
+      "category": "Graphics Designing",
+      "description": "Brand logo and visual identity asset showcase.",
+      "clientName": "SOCIAL MEDIA POST DESIGN",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786099310/um_digital/portfolio/w4mhrssqzujiudga0asw.webp",
+      "videoUrl": "",
+      "liveUrl": "https://example.com",
+      "featured": true,
+      "order": 36
     }
   ],
   "testimonials": [
@@ -673,75 +842,197 @@
   "team": [
     {
       "id": "1",
-      "name": "M Junaid Ahsan",
-      "role": "Founder & Full-Stack Engineer",
-      "bio": "Leading the technical vision and engineering robust digital platforms.",
-      "imageUrl": "/assets/team/placeholder.png"
+      "name": "Usama Murtaza",
+      "role": "CEO",
+      "bio": "",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786101792/um_digital/team/zam5dzh2uatnkywufk2d.webp"
     },
     {
       "id": "2",
-      "name": "Creative Lead",
-      "role": "Art Director",
-      "bio": "Crafting visually stunning brand identities and UI/UX experiences.",
-      "imageUrl": "/assets/team/placeholder.png"
+      "name": "M Junaid Ahsan",
+      "role": "Full Stack Developers",
+      "bio": "",
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786101887/um_digital/team/hufw5xypc9cxhrd3jvbt.webp"
     },
     {
       "id": "3",
-      "name": "Marketing Head",
-      "role": "Digital Strategist",
+      "name": "Hanzla ALi",
+      "role": "SEO",
       "bio": "Scaling brands through data-driven performance marketing and SEO.",
-      "imageUrl": "/assets/team/placeholder.png"
+      "imageUrl": "https://res.cloudinary.com/aeqrb8ky/image/upload/v1786101917/um_digital/team/n0soc3qxyuzhesm0a17i.webp"
     }
   ],
   "leads": [],
   "clients": [
     {
       "id": "c-1",
-      "label": "TechMatrix Global",
-      "logoUrl": "/assets/um digital logo-01.png",
+      "label": "Phantom Properties",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784182719%2Faeronox_uploads%2Fagdctqwdjulxtvm3avun.png&w=1920&q=75",
       "order": 1
     },
     {
       "id": "c-2",
-      "label": "Nexus Innovations",
-      "logoUrl": "/assets/um digital logo sa-01.png",
+      "label": "Hadafal Muteena Tourism",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784186784%2Faeronox_uploads%2Flzmauetjixzwurk8yggu.png&w=1920&q=75",
       "order": 2
     },
     {
       "id": "c-3",
       "label": "Aeronox Solutions",
-      "logoUrl": "/assets/um digital logo-01.png",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=%2Flogo_wht2.png&w=256&q=75",
       "order": 3
     },
     {
       "id": "c-4",
-      "label": "GlobalReach Media",
-      "logoUrl": "/assets/um digital logo sa-01.png",
+      "label": "Accommodation Corner",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784183874%2Faeronox_uploads%2Fmdmaumdizrwioivv3cyo.png&w=1920&q=75",
       "order": 4
     },
     {
       "id": "c-5",
-      "label": "Apex Financial",
-      "logoUrl": "/assets/um digital logo-01.png",
+      "label": "Emirates Visa Express",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784183960%2Faeronox_uploads%2Fheop7osdptosoyjtiryc.png&w=1920&q=75",
       "order": 5
     },
     {
       "id": "c-6",
-      "label": "Quantum AI Labs",
-      "logoUrl": "/assets/um digital logo sa-01.png",
+      "label": "KOR Rent A Car",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784183566%2Faeronox_uploads%2Fp0bt8tuq0uerpa8laseh.png&w=1920&q=75",
       "order": 6
     },
     {
       "id": "c-7",
-      "label": "Zenith Studios",
-      "logoUrl": "/assets/um digital logo-01.png",
+      "label": "URUS Rent A Car",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184092%2Faeronox_uploads%2Filb3xcgunshgz1zzxq8y.png&w=1920&q=75",
       "order": 7
     },
     {
       "id": "c-8",
-      "label": "Stellar E-commerce",
-      "logoUrl": "/assets/um digital logo sa-01.png",
+      "label": "Heidis Wardrobe",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184018%2Faeronox_uploads%2Fcrtlgfzljyno0xe6ndif.png&w=1920&q=75",
       "order": 8
+    },
+    {
+      "id": "client-1786091780139",
+      "label": "ECO Green Thermal Solution",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784187438%2Faeronox_uploads%2Fqejrmvwiv6sgmg9txqvz.png&w=1920&q=75",
+      "order": 9
+    },
+    {
+      "id": "client-1786091809723",
+      "label": "Quick Airport Transfers",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184159%2Faeronox_uploads%2Fxb07qsslafrduq71sbvt.png&w=1920&q=75",
+      "order": 10
+    },
+    {
+      "id": "client-1786091846467",
+      "label": "Index House",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784183513%2Faeronox_uploads%2Fu02s25svqbspsuiaabh2.png&w=1920&q=75",
+      "order": 11
+    },
+    {
+      "id": "client-1786091857107",
+      "label": "Luxora Haus",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184382%2Faeronox_uploads%2Fnu57nfkgt3igx4tao8iu.png&w=1920&q=75",
+      "order": 12
+    },
+    {
+      "id": "client-1786091873643",
+      "label": "Discover IBT",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184710%2Faeronox_uploads%2Fcbkgyzjmzldhidadxj8o.png&w=1920&q=75",
+      "order": 13
+    },
+    {
+      "id": "client-1786091890475",
+      "label": "Blue Cloud Tech",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185548%2Faeronox_uploads%2Fdczajvmtz7hzwpeh4thd.png&w=1920&q=75",
+      "order": 14
+    },
+    {
+      "id": "client-1786091905603",
+      "label": "Ducting Supplies",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784183048%2Faeronox_uploads%2Fgkmri75h3hvqlqp29tpu.png&w=1920&q=75",
+      "order": 15
+    },
+    {
+      "id": "client-1786091923595",
+      "label": "Ducting Delivered",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185506%2Faeronox_uploads%2Fn0k1dtkrwojnco73yky6.png&w=1920&q=75",
+      "order": 16
+    },
+    {
+      "id": "client-1786091941059",
+      "label": "Casita",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185447%2Faeronox_uploads%2Fd9wizn5dytpjozw2oxbs.png&w=1920&q=75",
+      "order": 17
+    },
+    {
+      "id": "client-1786091959843",
+      "label": "Orphan Care",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185619%2Faeronox_uploads%2Fpjudxjomztnzju2a4syf.png&w=1920&q=75",
+      "order": 18
+    },
+    {
+      "id": "client-1786091977355",
+      "label": "Connect AI Solutions",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185720%2Faeronox_uploads%2Fxtq0hmnlw7rautxbx7aw.png&w=1920&q=75",
+      "order": 19
+    },
+    {
+      "id": "client-1786091990987",
+      "label": "Ickle Tots",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185745%2Faeronox_uploads%2Fn180irnpm8ebjrvqpc05.png&w=1920&q=75",
+      "order": 20
+    },
+    {
+      "id": "client-1786092010947",
+      "label": "Tropi Juice",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185825%2Faeronox_uploads%2Fx49u15f7niolizry2dmk.png&w=1920&q=75",
+      "order": 21
+    },
+    {
+      "id": "client-1786092030595",
+      "label": "Excellency Beds Ltd",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185890%2Faeronox_uploads%2Frf8ciyaafglldlavc1c8.png&w=1920&q=75",
+      "order": 22
+    },
+    {
+      "id": "client-1786092045491",
+      "label": "Budget Bargainz Ltd",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184622%2Faeronox_uploads%2Funlhg7opekpvq9cuyxkc.png&w=1920&q=75",
+      "order": 23
+    },
+    {
+      "id": "client-1786092059163",
+      "label": "Kids Wholesale",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184773%2Faeronox_uploads%2Fmyklcp7xr8fxqczzxe9h.png&w=1920&q=75",
+      "order": 24
+    },
+    {
+      "id": "client-1786092075923",
+      "label": "Mansuri Fashions",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784184945%2Faeronox_uploads%2Fis4es3z7zuizismps80b.png&w=1920&q=75",
+      "order": 25
+    },
+    {
+      "id": "client-1786092088323",
+      "label": "Online Quran Academy",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784186603%2Faeronox_uploads%2Fcgbt739vfpq003yi5zjx.png&w=1920&q=75",
+      "order": 26
+    },
+    {
+      "id": "client-1786092103019",
+      "label": "Furnico Living",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784185088%2Faeronox_uploads%2Fvaec2tprmmdlng1yyapr.png&w=1920&q=75",
+      "order": 27
+    },
+    {
+      "id": "client-1786092117283",
+      "label": "Cake Corner",
+      "logoUrl": "https://aeronoxsolutions.co.uk/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fsrrwps7b%2Fimage%2Fupload%2Fv1784186089%2Faeronox_uploads%2Fq4poyw6qw0iejugl4ehc.png&w=1920&q=75",
+      "order": 28
     }
-  ]
+  ],
+  "createdAt": "2026-08-07T07:29:11.797Z",
+  "updatedAt": "2026-08-08T06:38:29.213Z"
 }

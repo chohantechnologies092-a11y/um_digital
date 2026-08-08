@@ -1,14 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
-import { ArrowLeft, ExternalLink, Play, Target, Lightbulb, TrendingUp, MapPin, Tag, Award, BarChart, FileText } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Play, Target, Lightbulb, TrendingUp, MapPin, Tag, Award, BarChart, FileText, BookOpen, Images, X, Maximize2 } from 'lucide-react';
 import { PortfolioProject, AgencyData } from '@/types';
 
 export default function PortfolioDetailClient({ data, project }: { data: AgencyData, project: PortfolioProject }) {
+  const caseStudyText = project.fullCaseStudy || project.content;
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+
+  // Combine cover image and additional images for complete gallery
+  const allImages = React.useMemo(() => {
+    const list: string[] = [];
+    if (project.imageUrl) list.push(project.imageUrl);
+    if (project.images && Array.isArray(project.images)) {
+      project.images.forEach(img => {
+        if (img && !list.includes(img)) list.push(img);
+      });
+    }
+    return list;
+  }, [project]);
+
   return (
     <div className="min-h-screen bg-[#030712] selection:bg-brand-orange/30 text-white flex flex-col relative overflow-hidden font-outfit">
       
@@ -87,7 +102,7 @@ export default function PortfolioDetailClient({ data, project }: { data: AgencyD
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="w-full aspect-video rounded-3xl overflow-hidden glass-card border border-white/10 relative mb-20 shadow-2xl group bg-black/50"
+            className="w-full aspect-video rounded-3xl overflow-hidden glass-card border border-white/10 relative mb-12 shadow-2xl group bg-black/50"
           >
             {project.videoUrl ? (
               <iframe 
@@ -101,7 +116,8 @@ export default function PortfolioDetailClient({ data, project }: { data: AgencyD
                 src={project.imageUrl || '/assets/um digital logo sa-01.png'}
                 alt={project.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 cursor-pointer"
+                onClick={() => setActiveImage(project.imageUrl || '/assets/um digital logo sa-01.png')}
                 unoptimized
               />
             )}
@@ -110,28 +126,103 @@ export default function PortfolioDetailClient({ data, project }: { data: AgencyD
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-6 right-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold hover:bg-brand-orange hover:border-brand-orange transition-colors"
+                className="absolute bottom-6 right-6 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white font-bold hover:bg-brand-orange hover:border-brand-orange transition-colors text-xs sm:text-sm"
               >
                 Visit Live Site
-                <ExternalLink className="w-5 h-5" />
+                <ExternalLink className="w-4 h-4" />
               </a>
             )}
           </motion.div>
 
-          {/* Main Content */}
-          {project.content && (
+          {/* Additional Images Gallery */}
+          {allImages.length > 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.23 }}
+              className="mb-20"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <Images className="w-6 h-6 text-brand-orange" />
+                <h3 className="text-2xl font-bold text-white">Project Showcase Gallery</h3>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {allImages.map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setActiveImage(img)}
+                    className="relative aspect-video rounded-2xl overflow-hidden glass-card border border-white/10 group cursor-pointer hover:border-brand-orange/50 transition-all bg-black/40"
+                  >
+                    <Image
+                      src={img}
+                      alt={`${project.title} image ${idx + 1}`}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      unoptimized
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Maximize2 className="w-5 h-5 text-white" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Lightbox Modal */}
+          <AnimatePresence>
+            {activeImage && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+                onClick={() => setActiveImage(null)}
+              >
+                <button
+                  onClick={() => setActiveImage(null)}
+                  className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <div className="relative max-w-5xl max-h-[85vh] w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
+                  <Image
+                    src={activeImage}
+                    alt={project.title}
+                    fill
+                    className="object-contain rounded-2xl"
+                    unoptimized
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Full Case Study Content */}
+          {caseStudyText && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25 }}
-              className="glass-card p-8 md:p-12 rounded-3xl border border-white/10 mb-20 relative"
+              className="glass-card p-8 md:p-12 rounded-3xl border border-brand-orange/30 mb-20 relative overflow-hidden shadow-2xl"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <FileText className="w-6 h-6 text-brand-orange" />
-                <h3 className="text-2xl font-bold">Project Details</h3>
+              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
+              <div className="flex items-center justify-between gap-4 mb-8 pb-6 border-b border-white/10 relative z-10 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 border border-brand-orange/30 flex items-center justify-center text-brand-orange">
+                    <BookOpen className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white">Full Case Study</h3>
+                    <p className="text-xs text-gray-400">Comprehensive breakdown of strategy, execution, and outcomes</p>
+                  </div>
+                </div>
+                <span className="px-4 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-bold uppercase tracking-wider">
+                  Deep Dive Analysis
+                </span>
               </div>
-              <div className="prose prose-invert max-w-none prose-lg text-gray-300 leading-relaxed whitespace-pre-wrap">
-                {project.content}
+              <div className="prose prose-invert max-w-none prose-lg text-gray-300 leading-relaxed whitespace-pre-wrap relative z-10">
+                {caseStudyText}
               </div>
             </motion.div>
           )}

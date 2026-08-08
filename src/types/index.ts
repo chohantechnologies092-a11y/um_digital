@@ -38,14 +38,29 @@ export interface HeroSection {
   stats: StatItem[];
 }
 
+export interface ServiceProcessStep {
+  title: string;
+  desc: string;
+}
+
+export interface ServiceFAQ {
+  question: string;
+  answer: string;
+}
+
 export interface ServiceItem {
   id: string;
   title: string;
   slug: string;
   shortDesc: string;
   fullDesc: string;
-  icon: string; // Lucide icon name
+  detailedContent?: string;
+  icon: string; // Lucide icon name;
   features: string[];
+  images?: string[];
+  processSteps?: ServiceProcessStep[];
+  benefits?: string[];
+  faq?: ServiceFAQ[];
   active: boolean;
   order: number;
 }
@@ -62,9 +77,11 @@ export interface PortfolioProject {
   solution?: string;
   stats?: { label: string; value: string }[];
   content?: string;
+  fullCaseStudy?: string;
   clientName: string;
   clientLocation?: string;
   imageUrl: string;
+  images?: string[];
   videoUrl?: string;
   liveUrl?: string;
   featured: boolean;

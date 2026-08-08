@@ -15,7 +15,7 @@ const config: Config = {
         'brand-blue': '#00b0ff',
       },
       animation: {
-        marquee: 'marquee 25s linear infinite',
+        marquee: 'marquee 180s linear infinite',
       },
       keyframes: {
         marquee: {
